@@ -14,13 +14,13 @@ export default defineConfig({
     port: 9527,
   },
   plugins: [
-    uni(),
     AutoImport({
       imports: ['vue'],
     }),
     Components({
       types: [],
     }),
+    uni(),
     UnoCSS(),
   ],
 })
