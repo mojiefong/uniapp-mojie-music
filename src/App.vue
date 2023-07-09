@@ -13,6 +13,8 @@ onHide(() => {
 </script>
 
 <style>
+/* @import "https://at.alicdn.com/t/c/font_4158018_lluvoewner9.css"; */
+
 page {
   /* #ec5241 #f4606c */
 
@@ -23,15 +25,48 @@ page {
 
   --color-text-base: #333;
   --color-text-secondary: #666;
+  --color-text-light: #999;
   --color-text-placeholder: #ccc;
 
-  --border-color-base:#dcdfe6;
+  --border-color-base: #dcdfe6;
 
-  --background-color-base: #f5f7fa;
+  --background-color-base: #f8f8f8;
 
   --box-shadow-base: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
 
   color: var(--color-text-base);
   background: var(--background-color-base);
+}
+
+page,
+block,
+view,
+scroll-view,
+swiper,
+movable-view,
+icon,
+text,
+progress,
+button,
+checkbox,
+form,
+input,
+label,
+picker,
+picker-view,
+radio,
+slider,
+switch,
+textarea,
+navigator,
+audio,
+image,
+video,
+map,
+canvas,
+contact-button,
+cover-image,
+cover-view {
+  box-sizing: border-box;
 }
 </style>
