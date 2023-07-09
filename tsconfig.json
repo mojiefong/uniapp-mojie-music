@@ -17,11 +17,11 @@
     ]
   },
   "include": [
+    "auto-imports.d.ts",
+    "components.d.ts",
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue",
-    "auto-imports.d.ts",
-    "components.d.ts"
+    "src/**/*.vue"
   ]
 }
