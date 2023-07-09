@@ -50,10 +50,10 @@ export default defineConfig({
       'placeholder': 'var(--color-text-placeholder)',
 
       // 背景色
-      'bg-base': 'var(--background-color-base)',
+      'bg-primary': 'var(--background-color-base)',
 
       // 边框色
-      'b-base': 'var(--border-color-base)',
+      'b-primary': 'var(--border-color-base)',
     },
   },
 })
