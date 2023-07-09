@@ -6,7 +6,9 @@ const { presetWeappAttributify, transformerAttributify } = extractorAttributify(
 
 export default defineConfig({
   presets: [
-    presetWeapp(),
+    presetWeapp({
+      whRpx: false,
+    }),
     presetWeappAttributify(),
   ],
   transformers: [
@@ -44,6 +46,7 @@ export default defineConfig({
       // 文字颜色
       'base': 'var(--color-text-base)',
       'secondary': 'var(--color-text-secondary)',
+      'light': 'var(--color-text-light)',
       'placeholder': 'var(--color-text-placeholder)',
 
       // 背景色
