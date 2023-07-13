@@ -1,15 +1,21 @@
 <script setup lang="ts">
-import { onHide, onLaunch, onShow } from '@dcloudio/uni-app'
+import { onLaunch } from '@dcloudio/uni-app'
+import { anonymousLogin, getLoginState } from './api/user'
+import { getCookie, setCookie } from './utils/storage'
 
 onLaunch(() => {
-  console.log('App Launch')
+  defaultLogin()
+  getLoginState()
 })
-onShow(() => {
-  console.log('App Show')
-})
-onHide(() => {
-  console.log('App Hide')
-})
+
+/**
+ * 默认游客登录
+ */
+async function defaultLogin() {
+  if (getCookie()) return
+  const { data } = await anonymousLogin()
+  setCookie(data.cookie)
+}
 </script>
 
 <style>

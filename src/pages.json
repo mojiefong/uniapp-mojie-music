@@ -3,8 +3,8 @@
     {
       "path": "pages/index/index",
       "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "uni-app"
+        // "navigationStyle": "custom",
+        "navigationBarTitleText": "魔杰音乐"
       }
     },
     {
