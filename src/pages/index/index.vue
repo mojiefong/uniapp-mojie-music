@@ -8,12 +8,12 @@
     </view>
 
     <card title="今日推荐">
-      <songs />
+      <songs :songs="recommendSongs" />
     </card>
 
-    <card title="热门歌曲">
-      <songs />
-    </card>
+    <!-- <card title="热门歌曲">
+      <songs :songs="songs" />
+    </card> -->
 
     <card title="推荐歌单">
       <view class="flex justify-between flex-wrap">
@@ -53,7 +53,16 @@
 </template>
 
 <script setup lang="ts">
+import { getRecommendSongs } from '@/api/home'
 
+const recommendSongs = ref([])
+
+onMounted(fetchRecommendSongs)
+
+async function fetchRecommendSongs() {
+  const { data } = await getRecommendSongs()
+  recommendSongs.value = data.data.dailySongs
+}
 </script>
 
 <style scoped>

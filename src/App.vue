@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { onLaunch } from '@dcloudio/uni-app'
-import { anonymousLogin, getLoginState } from './api/user'
+import { anonymousLogin } from './api/user'
 import { getCookie, setCookie } from './utils/storage'
+import { getRecommendSongs } from './api/home'
 
 onLaunch(() => {
   defaultLogin()
-  getLoginState()
+  getRecommendSongs()
 })
 
 /**
