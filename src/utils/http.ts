@@ -3,6 +3,8 @@
  * @Date: 2023-07-11 22:08:38
  */
 
+import { getCookie } from './storage'
+
 type Options = UniNamespace.RequestOptions
 type Response<T = any> = UniNamespace.RequestSuccessCallbackResult & {
   data?: T
@@ -11,6 +13,11 @@ type HttpPromise<T = any> = Promise<Response<T>>
 
 uni.addInterceptor('request', {
   invoke(args) {
+    // args.data = {
+    //   auth: 11,
+    //   ...args.data,
+    // }
+    args.data = Object.assign({ cookie: decodeURIComponent(`MUSIC_U=${getCookie()}`) }, args.data)
     args.url = import.meta.env.VITE_BASE_URL + args.url
   },
 })
