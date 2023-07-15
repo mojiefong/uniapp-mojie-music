@@ -7,22 +7,22 @@
       </text>
     </view>
 
-    <card title="今日推荐">
-      <songs :songs="recommendSongs" />
+    <card title="推荐歌曲">
+      <songs :songs="recommendSongs.slice(0, 3)" />
     </card>
 
-    <!-- <card title="热门歌曲">
-      <songs :songs="songs" />
-    </card> -->
+    <card title="热门歌曲">
+      <songs :songs="hotSongs.slice(0, 3)" />
+    </card>
 
     <card title="推荐歌单">
-      <view class="flex justify-between flex-wrap">
-        <view v-for="n in 6" :key="n" class="w-1/3 pt-2 pr-2">
+      <view class="grid grid-cols-3 gap-2 pt-2">
+        <view v-for="item in songList" :key="item.id">
           <view class="w-full h-28">
-            <image class="w-full h-full rd-2" src="https://avatars.githubusercontent.com/u/17779577?v=4" />
+            <image class="w-full h-full rd-2" :src="`${item.picUrl}?param=150y150`" />
           </view>
-          <text class="text-sm">
-            经典老歌经典老歌经典老歌经典老歌
+          <text class="name">
+            {{ item.name }}
           </text>
         </view>
       </view>
@@ -53,20 +53,60 @@
 </template>
 
 <script setup lang="ts">
-import { getRecommendSongs } from '@/api/home'
+import type { Song, SongList } from '@/models/user'
+import { getHotSongs, getRecommendSongList, getRecommendSongs } from '@/api/home'
 
-const recommendSongs = ref([])
+const recommendSongs = ref<Song[]>([])
+const hotSongs = ref<Song[]>([])
+const songList = ref<SongList[]>([])
 
-onMounted(fetchRecommendSongs)
+onMounted(fetchAllData)
+
+async function fetchAllData() {
+  try {
+    uni.showLoading({
+      title: '加载中',
+      mask: true,
+    })
+
+    await Promise.all([
+      fetchRecommendSongs(),
+      fetchHotSongs(),
+      fetchRecommendSongList(),
+    ])
+  } finally {
+    uni.hideLoading()
+  }
+}
 
 async function fetchRecommendSongs() {
-  const { data } = await getRecommendSongs()
-  recommendSongs.value = data.data.dailySongs
+  const songs = await getRecommendSongs()
+  recommendSongs.value = songs
+}
+
+async function fetchHotSongs() {
+  const songs = await getHotSongs()
+  hotSongs.value = songs
+}
+
+async function fetchRecommendSongList() {
+  const { data } = await getRecommendSongList()
+  songList.value = data.result
 }
 </script>
 
 <style scoped>
 .song:last-child .info{
   border: 0;
+}
+
+.name {
+  font-size: 22rpx;
+  padding-top: 16rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
 }
 </style>

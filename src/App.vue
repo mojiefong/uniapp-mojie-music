@@ -2,11 +2,9 @@
 import { onLaunch } from '@dcloudio/uni-app'
 import { anonymousLogin } from './api/user'
 import { getCookie, setCookie } from './utils/storage'
-import { getRecommendSongs } from './api/home'
 
 onLaunch(() => {
   defaultLogin()
-  getRecommendSongs()
 })
 
 /**
@@ -14,8 +12,8 @@ onLaunch(() => {
  */
 async function defaultLogin() {
   if (getCookie()) return
-  const { data } = await anonymousLogin()
-  setCookie(data.cookie)
+  const cookie = await anonymousLogin()
+  setCookie(cookie)
 }
 </script>
 

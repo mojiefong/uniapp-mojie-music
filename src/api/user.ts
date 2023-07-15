@@ -8,8 +8,11 @@ import { http } from '@/utils/http'
 /**
  * 游客登录
  */
-export function anonymousLogin() {
-  return http.get<{ cookie: string }>('/register/anonimous')
+export async function anonymousLogin() {
+  const { data } = await http.get('/register/anonimous')
+  const cookies = data.cookie.split(';') as string[]
+  const [_, value] = cookies.filter(key => key.startsWith('MUSIC_A='))[0].split('=')
+  return value
 }
 
 /**
