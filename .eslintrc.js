@@ -8,6 +8,7 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'antfu/if-newline': 'off',
+    '@typescript-eslint/brace-style': 'off',
     'vue/component-tags-order': [
       'error',
       {
