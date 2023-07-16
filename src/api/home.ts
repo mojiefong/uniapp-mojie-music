@@ -23,14 +23,6 @@ export async function getRecommendSongs(): Promise<Song[]> {
 }
 
 /**
- * 获取热门歌曲
- */
-export async function getHotSongs(): Promise<Song[]> {
-  const { data } = await http.get('/playlist/detail?id=3778678')
-  return transform(data.playlist.tracks)
-}
-
-/**
  * 获取每日推荐歌单
  */
 export function getRecommendSongList() {

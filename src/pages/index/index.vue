@@ -1,18 +1,14 @@
 <template>
-  <view class="px-2 pt-2 pb-10">
-    <view class=" flex-center text-light rd-2 bg-white">
+  <view class="px-2 pb-10">
+    <view class="h-6 flex-center text-light rd-1 bg-white">
       <text class="iconfont icon-search text-xl pt-0.5" />
-      <text class="text-sm">
+      <text class="text-[22rpx]">
         告白气球
       </text>
     </view>
 
     <card title="推荐歌曲">
       <songs :songs="recommendSongs.slice(0, 3)" />
-    </card>
-
-    <card title="热门歌曲">
-      <songs :songs="hotSongs.slice(0, 3)" />
     </card>
 
     <card title="推荐歌单">
@@ -48,10 +44,9 @@
 
 <script setup lang="ts">
 import type { Song, SongList, TopList } from '@/models/user'
-import { getHotSongs, getRecommendSongList, getRecommendSongs, getTopList } from '@/api/home'
+import { getRecommendSongList, getRecommendSongs, getTopList } from '@/api/home'
 
 const recommendSongs = ref<Song[]>([])
-const hotSongs = ref<Song[]>([])
 const songList = ref<SongList[]>([])
 const topList = ref<TopList[]>([])
 
@@ -66,7 +61,6 @@ async function fetchAllData() {
 
     await Promise.all([
       fetchRecommendSongs(),
-      fetchHotSongs(),
       fetchRecommendSongList(),
       fetchTopList(),
     ])
@@ -78,11 +72,6 @@ async function fetchAllData() {
 async function fetchRecommendSongs() {
   const songs = await getRecommendSongs()
   recommendSongs.value = songs
-}
-
-async function fetchHotSongs() {
-  const songs = await getHotSongs()
-  hotSongs.value = songs
 }
 
 async function fetchRecommendSongList() {
