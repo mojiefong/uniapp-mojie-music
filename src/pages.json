@@ -25,6 +25,12 @@
       "style": {
         "navigationBarTitleText": "推荐歌单"
       }
+    },
+    {
+      "path": "pages/top-list/top-list",
+      "style": {
+        "navigationBarTitleText": "排行榜"
+      }
     }
   ],
   "globalStyle": {

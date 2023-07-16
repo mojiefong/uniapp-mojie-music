@@ -15,7 +15,7 @@
       <mo-song-list :song-list="songList" />
     </mo-card>
 
-    <mo-card title="排行榜">
+    <mo-card title="排行榜" @more="toTopList">
       <view class="pt-1">
         <view v-for="item in topList.slice(0, 4)" :key="item.id" class="song flex-v-center box-content">
           <image class="w-20 h-20 rd-2" :src="`${item.coverImgUrl}?param=100y100`" />
@@ -86,6 +86,15 @@ function toRecommendSong() {
 
 function toRecommendSonList() {
   uni.navigateTo({ url: '/pages/recommend-song-list/recommend-song-list' })
+}
+
+function toTopList() {
+  uni.navigateTo({
+    url: '/pages/top-list/top-list',
+    success(res) {
+      res.eventChannel.emit('topList', topList.value)
+    },
+  })
 }
 </script>
 
