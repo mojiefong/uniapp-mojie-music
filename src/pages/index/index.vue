@@ -30,20 +30,14 @@
 
     <card title="排行榜">
       <view class="pt-1">
-        <view v-for="n in 3" :key="n" class="song flex-v-center box-content">
-          <image class="w-20 h-20 rd-2" src="https://avatars.githubusercontent.com/u/17779577?v=4" />
+        <view v-for="item in topList.slice(0, 4)" :key="item.id" class="song flex-v-center box-content">
+          <image class="w-20 h-20 rd-2" :src="`${item.coverImgUrl}?param=100y100`" />
           <view class="info h-12 flex-1 flex-h-center flex-col ml-2 b-b b-b-solid b-b-primary py-5 box-content">
             <text class="text-sm">
-              热歌榜
+              {{ item.name }}
             </text>
-            <text class="text-xs text-light">
-              1 告白气球
-            </text>
-            <text class="text-xs text-light">
-              2 稻香
-            </text>
-            <text class="text-xs text-light">
-              3 青花瓷
+            <text v-for="(song, index) in item.tracks" :key="index" class="text-xs text-light">
+              {{ index + 1 }} {{ song.first }} - {{ song.second }}
             </text>
           </view>
         </view>
@@ -53,12 +47,13 @@
 </template>
 
 <script setup lang="ts">
-import type { Song, SongList } from '@/models/user'
-import { getHotSongs, getRecommendSongList, getRecommendSongs } from '@/api/home'
+import type { Song, SongList, TopList } from '@/models/user'
+import { getHotSongs, getRecommendSongList, getRecommendSongs, getTopList } from '@/api/home'
 
 const recommendSongs = ref<Song[]>([])
 const hotSongs = ref<Song[]>([])
 const songList = ref<SongList[]>([])
+const topList = ref<TopList[]>([])
 
 onMounted(fetchAllData)
 
@@ -73,6 +68,7 @@ async function fetchAllData() {
       fetchRecommendSongs(),
       fetchHotSongs(),
       fetchRecommendSongList(),
+      fetchTopList(),
     ])
   } finally {
     uni.hideLoading()
@@ -92,6 +88,11 @@ async function fetchHotSongs() {
 async function fetchRecommendSongList() {
   const { data } = await getRecommendSongList()
   songList.value = data.result
+}
+
+async function fetchTopList() {
+  const { data } = await getTopList()
+  topList.value = data.list
 }
 </script>
 

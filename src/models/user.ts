@@ -50,3 +50,32 @@ export interface SongList {
    */
   playCount: number
 }
+
+/**
+ * 排行榜模型
+ */
+export interface TopList {
+  id: number
+  name: string
+  coverImgUrl: string
+
+  /**
+   * 更新频率
+   */
+  updateFrequency: string
+
+  /**
+   * 曲目
+   */
+  tracks: {
+    /**
+     * 歌曲名称
+     */
+    first: string
+
+    /**
+     * 歌手名称
+     */
+    second: string
+  }[]
+}

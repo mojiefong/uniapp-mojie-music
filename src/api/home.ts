@@ -3,7 +3,7 @@
  * @Date: 2023-07-14 22:50:01
  */
 
-import type { Song, SongList } from '@/models/user'
+import type { Song, SongList, TopList } from '@/models/user'
 import { http } from '@/utils/http'
 
 function transform(list: any) {
@@ -35,4 +35,11 @@ export async function getHotSongs(): Promise<Song[]> {
  */
 export function getRecommendSongList() {
   return http.get<{ result: SongList[] }>('/personalized?limit=6')
+}
+
+/**
+ * 获取排行榜
+ */
+export function getTopList() {
+  return http.get<{ list: TopList[] }>('/toplist/detail')
 }
