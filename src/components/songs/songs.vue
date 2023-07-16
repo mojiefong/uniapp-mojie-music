@@ -1,13 +1,13 @@
 <template>
   <view class="pt-1">
     <view v-for="song in songs" :key="song.id" class="song flex-v-center box-content">
-      <image class="w-12 h-12 rd-2" :src="`${song.album.picUrl}?param=60y60`" />
-      <view class="info h-12 flex-1 flex-h-center flex-col ml-2 b-b b-b-solid b-b-primary py-1 box-content">
+      <image class="w-10 h-10 rd-2" :src="`${song.album.picUrl}?param=60y60`" />
+      <view class="info h-10 flex-1 flex-h-center flex-col ml-2 b-b b-b-solid b-b-primary py-1 box-content">
         <text class="text-sm">
           {{ song.name }}
         </text>
-        <text class="text-xs text-light">
-          {{ song.singers.join(' / ') }} - {{ song.album.name }}
+        <text class="text-[20rpx] text-light">
+          {{ song.singers.join('/') }} - {{ song.album.name }}
         </text>
       </view>
     </view>
