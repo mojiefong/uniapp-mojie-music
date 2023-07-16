@@ -30,7 +30,15 @@ watchEffect(() => {
 })
 
 async function fetchRecommendSongs() {
-  const songs = await getRecommendSongs()
-  recommendSongs.value = songs
+  try {
+    uni.showLoading({
+      title: '加载中',
+      mask: true,
+    })
+    const songs = await getRecommendSongs()
+    recommendSongs.value = songs
+  } finally {
+    uni.hideLoading()
+  }
 }
 </script>
