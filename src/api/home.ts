@@ -25,8 +25,8 @@ export async function getRecommendSongs(): Promise<Song[]> {
 /**
  * 获取每日推荐歌单
  */
-export function getRecommendSongList() {
-  return http.get<{ result: SongList[] }>('/personalized?limit=6')
+export function getRecommendSongList(limit = 6) {
+  return http.get<{ result: SongList[] }>(`/personalized?limit=${limit}`)
 }
 
 /**

@@ -19,6 +19,12 @@
       "style": {
         "navigationBarTitleText": "每日推荐"
       }
+    },
+    {
+      "path": "pages/recommend-song-list/recommend-song-list",
+      "style": {
+        "navigationBarTitleText": "推荐歌单"
+      }
     }
   ],
   "globalStyle": {

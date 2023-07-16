@@ -7,24 +7,15 @@
       </text>
     </view>
 
-    <card title="每日推荐" @more="toRecommendSong">
-      <songs :songs="recommendSongs.slice(0, 3)" />
-    </card>
+    <mo-card title="每日推荐" @more="toRecommendSong">
+      <mo-songs :songs="recommendSongs.slice(0, 3)" />
+    </mo-card>
 
-    <card title="推荐歌单">
-      <view class="grid grid-cols-3 gap-2 pt-2">
-        <view v-for="item in songList" :key="item.id">
-          <view class="w-full h-29vw">
-            <image class="w-full h-full rd-2" :src="`${item.picUrl}?param=200y200`" />
-          </view>
-          <text class="name">
-            {{ item.name }}
-          </text>
-        </view>
-      </view>
-    </card>
+    <mo-card title="推荐歌单" @more="toRecommendSonList">
+      <mo-song-list :song-list="songList" />
+    </mo-card>
 
-    <card title="排行榜">
+    <mo-card title="排行榜">
       <view class="pt-1">
         <view v-for="item in topList.slice(0, 4)" :key="item.id" class="song flex-v-center box-content">
           <image class="w-20 h-20 rd-2" :src="`${item.coverImgUrl}?param=100y100`" />
@@ -38,7 +29,7 @@
           </view>
         </view>
       </view>
-    </card>
+    </mo-card>
   </view>
 </template>
 
@@ -92,20 +83,14 @@ function toRecommendSong() {
     },
   })
 }
+
+function toRecommendSonList() {
+  uni.navigateTo({ url: '/pages/recommend-song-list/recommend-song-list' })
+}
 </script>
 
 <style scoped>
 .song:last-child .info{
   border: 0;
-}
-
-.name {
-  font-size: 22rpx;
-  padding-top: 16rpx;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 2;
 }
 </style>
