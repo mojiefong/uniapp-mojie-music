@@ -7,15 +7,15 @@
       </text>
     </view>
 
-    <card title="推荐歌曲">
+    <card title="每日推荐" @more="toRecommendSong">
       <songs :songs="recommendSongs.slice(0, 3)" />
     </card>
 
     <card title="推荐歌单">
       <view class="grid grid-cols-3 gap-2 pt-2">
         <view v-for="item in songList" :key="item.id">
-          <view class="w-full h-28">
-            <image class="w-full h-full rd-2" :src="`${item.picUrl}?param=150y150`" />
+          <view class="w-full h-29vw">
+            <image class="w-full h-full rd-2" :src="`${item.picUrl}?param=200y200`" />
           </view>
           <text class="name">
             {{ item.name }}
@@ -82,6 +82,15 @@ async function fetchRecommendSongList() {
 async function fetchTopList() {
   const { data } = await getTopList()
   topList.value = data.list
+}
+
+function toRecommendSong() {
+  uni.navigateTo({
+    url: '/pages/recommend-songs/recommend-songs',
+    success(res) {
+      res.eventChannel.emit('recommendSongs', recommendSongs.value)
+    },
+  })
 }
 </script>
 

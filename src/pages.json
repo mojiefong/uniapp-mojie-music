@@ -13,6 +13,12 @@
         "navigationStyle": "custom",
         "navigationBarTitleText": "我的"
       }
+    },
+    {
+      "path": "pages/recommend-songs/recommend-songs",
+      "style": {
+        "navigationBarTitleText": "每日推荐"
+      }
     }
   ],
   "globalStyle": {
