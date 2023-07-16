@@ -1,6 +1,6 @@
 <template>
   <view class="px-2 pb-4">
-    <Songs :songs="recommendSongs" />
+    <mo-songs :songs="recommendSongs" />
   </view>
 </template>
 
