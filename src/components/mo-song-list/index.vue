@@ -16,3 +16,15 @@ import type { SongList } from '@/models/user'
 
 defineProps<{ songList: SongList[] }>()
 </script>
+
+<style scoped>
+.name {
+  font-size: 22rpx;
+  padding-top: 16rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+}
+</style>
