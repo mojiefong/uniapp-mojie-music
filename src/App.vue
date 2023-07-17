@@ -18,9 +18,9 @@ async function defaultLogin() {
 </script>
 
 <style>
-/* @import "https://at.alicdn.com/t/c/font_4158018_lluvoewner9.css"; */
+@import "//at.alicdn.com/t/c/font_4158018_kv1djhclnlj.css";
 
-page {
+page, html, body {
   /* #ec5241 #f4606c */
 
   --color-base: #f4606c;

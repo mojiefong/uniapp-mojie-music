@@ -79,3 +79,12 @@ export interface TopList {
     second: string
   }[]
 }
+
+/**
+ * 热门搜索模型
+ */
+export interface HotSearch {
+  hots: {
+    first: string
+  }[]
+}

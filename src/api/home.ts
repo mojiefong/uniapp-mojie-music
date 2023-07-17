@@ -3,7 +3,7 @@
  * @Date: 2023-07-14 22:50:01
  */
 
-import type { Song, SongList, TopList } from '@/models/user'
+import type { HotSearch, Song, SongList, TopList } from '@/models/user'
 import { http } from '@/utils/http'
 
 function transform(list: any) {
@@ -34,4 +34,11 @@ export function getRecommendSongList(limit = 6) {
  */
 export function getTopList() {
   return http.get<{ list: TopList[] }>('/toplist/detail')
+}
+
+/**
+ * 获取热门搜索列表
+ */
+export function getHotSearches() {
+  return http.get<{ result: HotSearch }>('/search/hot')
 }

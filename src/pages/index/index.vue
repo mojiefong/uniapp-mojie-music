@@ -1,9 +1,9 @@
 <template>
   <view class="px-2 pb-10">
-    <view class="h-6 flex-center text-light rd-1 bg-white">
+    <view class="h-7 flex-center text-light rd-7 bg-white" @click="toSearch">
       <text class="iconfont icon-search text-xl pt-0.5" />
-      <text class="text-[22rpx]">
-        告白气球
+      <text class="text-sm">
+        搜索歌曲/歌单/歌手
       </text>
     </view>
 
@@ -95,6 +95,10 @@ function toTopList() {
       res.eventChannel.emit('topList', topList.value)
     },
   })
+}
+
+function toSearch() {
+  uni.navigateTo({ url: '/pages/search/search' })
 }
 </script>
 

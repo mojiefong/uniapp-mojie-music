@@ -15,7 +15,7 @@ export default defineConfig({
   },
   plugins: [
     AutoImport({
-      imports: ['vue'],
+      imports: ['vue', 'pinia'],
     }),
     Components({
       types: [],
