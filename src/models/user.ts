@@ -51,6 +51,24 @@ export interface SongList {
   playCount: number
 }
 
+export interface SongListDetail {
+  id: number
+  name: string
+  coverImgUrl: string
+  description: string
+
+  /**
+     * 创建人
+     */
+  creator: {
+    userId: number
+    nickname: string
+    avatarUrl: string
+  }
+
+  tracks: Song[]
+}
+
 /**
  * 排行榜模型
  */

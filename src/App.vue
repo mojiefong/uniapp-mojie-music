@@ -18,7 +18,7 @@ async function defaultLogin() {
 </script>
 
 <style>
-@import "//at.alicdn.com/t/c/font_4158018_kv1djhclnlj.css";
+@import "//at.alicdn.com/t/c/font_4158018_8joistpukkm.css";
 
 page, html, body {
   /* #ec5241 #f4606c */
@@ -73,5 +73,12 @@ contact-button,
 cover-image,
 cover-view {
   box-sizing: border-box;
+}
+
+ /* 文字省略 */
+.text-ellipsis-single {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

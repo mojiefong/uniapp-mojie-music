@@ -27,6 +27,13 @@
       }
     },
     {
+      "path": "pages/song-list-detail/song-list-detail",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "歌单详情"
+      }
+    },
+    {
       "path": "pages/top-list/top-list",
       "style": {
         "navigationBarTitleText": "排行榜"

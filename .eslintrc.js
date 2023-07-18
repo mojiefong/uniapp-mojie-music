@@ -9,6 +9,7 @@ module.exports = {
     'no-console': 'off',
     'antfu/if-newline': 'off',
     '@typescript-eslint/brace-style': 'off',
+    'curly': 'off',
     'vue/component-tags-order': [
       'error',
       {

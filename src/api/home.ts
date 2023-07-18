@@ -3,7 +3,7 @@
  * @Date: 2023-07-14 22:50:01
  */
 
-import type { HotSearch, Song, SongList, TopList } from '@/models/user'
+import type { HotSearch, Song, SongList, SongListDetail, TopList } from '@/models/user'
 import { http } from '@/utils/http'
 
 function transform(list: any) {
@@ -41,4 +41,14 @@ export function getTopList() {
  */
 export function getHotSearches() {
   return http.get<{ result: HotSearch }>('/search/hot')
+}
+
+/**
+ * 获取歌单详情
+ * @param id 歌单id
+ */
+export async function getSongListDetail(id: string) {
+  const { data } = await http.get<{ playlist: SongListDetail }>(`/playlist/detail?id=${id}`)
+  data.playlist.tracks = transform(data.playlist.tracks)
+  return data.playlist
 }

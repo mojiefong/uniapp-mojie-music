@@ -11,8 +11,8 @@
       <mo-songs :songs="recommendSongs.slice(0, 3)" />
     </mo-card>
 
-    <mo-card title="推荐歌单" @more="toRecommendSonList">
-      <mo-song-list :song-list="songList" />
+    <mo-card title="推荐歌单" @more="toRecommendSongList">
+      <mo-song-list :song-list="songList" @click="onSongList" />
     </mo-card>
 
     <mo-card title="排行榜" @more="toTopList">
@@ -84,7 +84,7 @@ function toRecommendSong() {
   })
 }
 
-function toRecommendSonList() {
+function toRecommendSongList() {
   uni.navigateTo({ url: '/pages/recommend-song-list/recommend-song-list' })
 }
 
@@ -99,6 +99,10 @@ function toTopList() {
 
 function toSearch() {
   uni.navigateTo({ url: '/pages/search/search' })
+}
+
+function onSongList(item: SongList) {
+  uni.navigateTo({ url: `/pages/song-list-detail/song-list-detail?id=${item.id}` })
 }
 </script>
 
