@@ -1,32 +1,43 @@
 <template>
   <view>
-    <view class="w-full h-8 text-sm text-center flex-v-center fixed top-0 left-0 z-1">
-      <text class="iconfont icon-left text-xl" />
-      <view class="pl-6 pr-1 -ml-4 text-center flex-1 text-ellipsis-single">
+    <view class="w-full h-10 text-sm text-center fixed flex-v-center top-0 left-0 z-12 text-white">
+      <text class="iconfont icon-left text-3xl relative z-1" @click="onBack" />
+      <view class="pl-8 pr-1 -ml-7.5 text-center flex-1 text-ellipsis-single opacity-0" :style="titleStyle">
         {{ detail?.name }}
       </view>
     </view>
 
-    <image class="w-full" :src="`${detail?.coverImgUrl}?param=400y400`" />
-    <view class="px-2 pb-10">
+    <view id="img" class="w-full h-60 fixed top-0 left-0 z-10 overflow-hidden" :style="imgStyle">
+      <image class="w-full h-75" :src="`${detail?.coverImgUrl}?param=300y300`" />
+    </view>
+
+    <view class="px-2 pb-10 pt-60">
       <mo-songs v-if="detail" :songs="detail.tracks" show-index />
     </view>
   </view>
 </template>
 
 <script setup lang="ts">
-import { onLoad } from '@dcloudio/uni-app'
+import type { CSSProperties } from 'vue'
+import { onLoad, onPageScroll } from '@dcloudio/uni-app'
 import { getSongListDetail } from '@/api/home'
 import type { SongListDetail } from '@/models/user'
 
 const detail = ref<SongListDetail>()
+const titleStyle = ref<CSSProperties>()
+const imgStyle = ref<CSSProperties>()
 
 onLoad((options) => {
-  if (options?.id) {
-    fetchSongListDetail(options.id)
-  } else {
-    uni.navigateBack()
-  }
+  options!.id && fetchSongListDetail(options!.id)
+})
+
+onPageScroll(({ scrollTop }) => {
+  const query = uni.createSelectorQuery().in(getCurrentInstance())
+  query.select('#img').boundingClientRect(({ height }: any) => {
+    const opacity = (scrollTop > 0 ? Math.round(scrollTop + 40) : Math.round(scrollTop)) / height
+    titleStyle.value = { opacity: opacity >= 1 ? 1 : opacity }
+    imgStyle.value = { top: scrollTop <= 200 ? `-${scrollTop}px` : '-200px' }
+  }).exec()
 })
 
 async function fetchSongListDetail(id: string) {
@@ -40,5 +51,9 @@ async function fetchSongListDetail(id: string) {
   } finally {
     uni.hideLoading()
   }
+}
+
+function onBack() {
+  uni.switchTab({ url: '/pages/index/index' })
 }
 </script>
