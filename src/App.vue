@@ -18,7 +18,7 @@ async function defaultLogin() {
 </script>
 
 <style>
-@import "//at.alicdn.com/t/c/font_4158018_8joistpukkm.css";
+@import "//at.alicdn.com/t/c/font_4158018_wg8h43gfuri.css";
 
 page, html, body {
   /* #ec5241 #f4606c */

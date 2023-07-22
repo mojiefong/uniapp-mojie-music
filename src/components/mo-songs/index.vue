@@ -1,11 +1,30 @@
 <template>
   <view class="pt-1">
+    <view v-show="allPlay" class="text-sm flex-v-center pb-2">
+      <text class="w-6 h-6 text-white bg-theme flex-center rd-50%">
+        <text class="iconfont icon-play text-xs" />
+      </text>
+      <text class="pl-2 pr-1">
+        播放全部
+      </text>
+      <text class="text-[18rpx] text-light">
+        ({{ songs.length }})
+      </text>
+    </view>
+
     <view v-for="(song, index) in songs" :key="song.id" class="song flex-v-center box-content">
-      <text v-if="showIndex" class="w-4 text-center mr-1 text-light text-sm" :class="{ 'text-xs': index.toString().length > 2 }">
+      <text
+        v-if="showIndex"
+        class="w-4 text-center mr-1 text-light text-sm"
+        :class="{ 'text-xs': index.toString().length > 2 }"
+      >
         {{ index + 1 }}
       </text>
       <image v-else class="w-10 h-10 rd-2" :src="`${song.album.picUrl}?param=60y60`" />
-      <view class="info h-10 flex-1 flex-h-center flex-col ml-2 b-b b-b-solid b-b-primary py-1 box-content">
+      <view
+        class="info flex-1 flex-h-center flex-col ml-2 b-b b-b-solid b-b-primary py-1 box-content"
+        :class="{ 'h-10': !showIndex }"
+      >
         <text class="text-sm">
           {{ song.name }}
         </text>
@@ -20,10 +39,15 @@
 <script setup lang="ts">
 import type { Song } from '@/models/user'
 
-defineProps<{
+interface Props {
   songs: Song[]
   showIndex?: boolean
-}>()
+  allPlay?: boolean
+}
+
+withDefaults(defineProps<Props>(), {
+  allPlay: true,
+})
 </script>
 
 <style scoped>
