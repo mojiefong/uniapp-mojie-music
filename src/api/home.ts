@@ -52,3 +52,20 @@ export async function getSongListDetail(id: string) {
   data.playlist.tracks = transform(data.playlist.tracks)
   return data.playlist
 }
+
+/**
+ * 获取歌曲详细
+ * @param ids
+ */
+export async function getSongDetail(ids: string): Promise<Song[]> {
+  const { data } = await http.get(`/song/detail?ids=${ids}`)
+  return transform(data.songs)
+}
+
+/**
+ * 获取歌曲播放地址
+ * @param id
+ */
+export function getSongUrl(id: string) {
+  return http.get<{ data: { url: string }[] }>(`/song/url?id=${id}`)
+}
