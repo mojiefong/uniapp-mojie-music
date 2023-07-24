@@ -1,18 +1,24 @@
 <template>
   <view class="pt-1">
-    <view v-show="allPlay" class="text-sm flex-v-center pb-2">
-      <text class="w-6 h-6 text-white bg-theme flex-center rd-50%">
-        <text class="iconfont icon-play text-xs" />
-      </text>
-      <text class="pl-2 pr-1">
-        播放全部
-      </text>
-      <text class="text-[18rpx] text-light">
-        ({{ songs.length }})
-      </text>
+    <view v-show="allPlay" class="text-sm pb-2">
+      <view class="flex-v-center">
+        <text class="w-6 h-6 text-white bg-theme flex-center rd-50%">
+          <text class="iconfont icon-play text-xs" />
+        </text>
+        <text class="pl-2 pr-1">
+          播放全部
+        </text>
+        <text class="text-[18rpx] text-light">
+          ({{ songs.length }})
+        </text>
+      </view>
     </view>
 
-    <view v-for="(song, index) in songs" :key="song.id" class="song flex-v-center box-content">
+    <view
+      v-for="(song, index) in songs" :key="song.id"
+      class="song flex-v-center box-content"
+      @click="onClick(song, index)"
+    >
       <text
         v-if="showIndex"
         class="w-4 text-center mr-1 text-light text-sm"
@@ -38,6 +44,7 @@
 
 <script setup lang="ts">
 import type { Song } from '@/models/user'
+import { usePlayer } from '@/store/player'
 
 interface Props {
   songs: Song[]
@@ -45,9 +52,17 @@ interface Props {
   allPlay?: boolean
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   allPlay: true,
 })
+
+const { setPlayList, setCurrentIndex } = usePlayer()
+
+function onClick(song: Song, index: number) {
+  setPlayList(props.songs)
+  setCurrentIndex(index)
+  uni.navigateTo({ url: '/pages/player/player' })
+}
 </script>
 
 <style scoped>
