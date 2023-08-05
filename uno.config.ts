@@ -41,7 +41,7 @@ export default defineConfig({
       // 辅助色
       'success': 'var(--color-success)',
       'warning': 'var(--color-warning)',
-      'info': 'var(--color-info)',
+      'error': 'var(--color-error)',
 
       // 文字颜色
       'base': 'var(--color-text-base)',
