@@ -1,7 +1,7 @@
 <template>
   <view class="px-2 pb-4">
     <view class="pt-1 grid grid-cols-3 gap-2">
-      <view v-for="item in topList" :key="item.id">
+      <view v-for="item in topList" :key="item.id" @click="toSongList(item.id)">
         <image class="w-full h-29vw rd-2" :src="`${item.coverImgUrl}?param=200y200`" />
         <text class="text-xs">
           {{ item.name }}
@@ -47,5 +47,9 @@ async function fetchTopList() {
   } finally {
     uni.hideLoading()
   }
+}
+
+function toSongList(id: number) {
+  uni.navigateTo({ url: `/pages/song-list-detail/song-list-detail?id=${id}` })
 }
 </script>
