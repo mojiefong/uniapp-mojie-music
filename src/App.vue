@@ -2,9 +2,15 @@
 import { onLaunch } from '@dcloudio/uni-app'
 import { anonymousLogin } from './api/user'
 import { getCookie, setCookie } from './utils/storage'
+import { usePlayer } from './store/player'
+
+const playerStore = usePlayer()
+const { audio } = playerStore
+const { playing } = storeToRefs(playerStore)
 
 onLaunch(() => {
   defaultLogin()
+  setupAudio()
 })
 
 /**
@@ -14,6 +20,19 @@ async function defaultLogin() {
   if (getCookie()) return
   const cookie = await anonymousLogin()
   setCookie(cookie)
+}
+
+/**
+ * 监听audio事件
+ */
+function setupAudio() {
+  audio.onPlay(() => {
+    playing.value = true
+  })
+
+  audio.onPause(() => {
+    playing.value = false
+  })
 }
 </script>
 
@@ -80,5 +99,15 @@ cover-view {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

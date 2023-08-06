@@ -56,11 +56,10 @@ const props = withDefaults(defineProps<Props>(), {
   allPlay: true,
 })
 
-const { setPlayList, setCurrentIndex } = usePlayer()
+const { onPlay } = usePlayer()
 
 function onClick(song: Song, index: number) {
-  setPlayList(props.songs)
-  setCurrentIndex(index)
+  onPlay(props.songs, index)
   uni.navigateTo({ url: '/pages/player/player' })
 }
 </script>

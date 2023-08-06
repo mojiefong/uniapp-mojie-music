@@ -19,9 +19,9 @@
         class="w-18.5 h-30 absolute left-49% top-15 z-100
         bg-[url(~@/static/stylus.png)] bg-cover bg-no-repeat
         rotate-0 origin-[12px_12px] transition-transform duration-0.3s"
-        :class="{ '-rotate-30!': isOk }"
+        :class="{ '-rotate-30!': !playing }"
       />
-      <view class="w-full h-70 bg-[url(~@/static/circle.png)] bg-cover bg-no-repeat relative">
+      <view style="animation: rotate 20s linear infinite" class="w-full h-70 bg-[url(~@/static/circle.png)] bg-cover bg-no-repeat relative">
         <image class="w-64% h-64% rd-50% pos-center" :src="`${currentSong.album?.picUrl}?param=200y200`" />
       </view>
     </view>
@@ -51,8 +51,11 @@
       <view class="flex-v-center justify-around">
         <text class="iconfont icon-random text-2xl" />
         <text class="iconfont icon-next text-2xl" />
-        <text class="iconfont icon-play text-5xl" />
-        <!-- <text class="iconfont icon-pause text-5xl" /> -->
+        <text
+          class="iconfont text-5xl"
+          :class="playing ? 'icon-pause' : 'icon-play'"
+          @click="togglePlay"
+        />
         <text class="iconfont icon-prev text-2xl" />
         <text class="iconfont icon-palylist text-2xl" />
       </view>
@@ -64,11 +67,12 @@
 import { onLoad } from '@dcloudio/uni-app'
 import { usePlayer } from '@/store/player'
 
-const isOk = ref(true)
-const { currentSong } = usePlayer()
+const playerStore = usePlayer()
+const { togglePlay } = playerStore
+const { currentSong, playing } = storeToRefs(playerStore)
 
 onLoad(() => {
-  if (!currentSong.id) uni.switchTab({ url: '/pages/index/index' })
+  if (!currentSong.value.id) uni.switchTab({ url: '/pages/index/index' })
 })
 
 function onBack() {

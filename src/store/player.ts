@@ -3,6 +3,7 @@
  * @Date: 2023-07-23 16:40:59
  */
 
+import { getSongUrl } from '@/api/home'
 import type { Song } from '@/models/user'
 
 export const usePlayer = defineStore('player', () => {
@@ -14,18 +15,39 @@ export const usePlayer = defineStore('player', () => {
   // 当前播放的歌曲
   const currentSong = computed(() => playList.value[currentIndex.value] ?? {})
 
-  function setPlayList(songs: Song[]) {
-    playList.value = songs
+  // 获取歌曲播放的url地址
+  async function fetchSongUrl() {
+    try {
+      const { data } = await getSongUrl(currentSong.value.id)
+      const { url } = data.data[0]
+      audio.src = url
+      audio.play()
+    } catch (error) {
+      uni.showModal({
+        title: '提示',
+        content: '获取播放地址失败',
+      })
+    }
   }
 
-  function setCurrentIndex(index: number) {
+  // 触发播放
+  function onPlay(songs: Song[], index: number) {
+    playList.value = songs
     currentIndex.value = index
+    playing.value = true
+    fetchSongUrl()
+  }
+
+  // 切换播放
+  function togglePlay() {
+    playing.value ? audio.pause() : audio.play()
   }
 
   return {
     audio,
+    playing,
     currentSong,
-    setPlayList,
-    setCurrentIndex,
+    onPlay,
+    togglePlay,
   }
 })

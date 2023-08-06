@@ -66,6 +66,6 @@ export async function getSongDetail(ids: string): Promise<Song[]> {
  * 获取歌曲播放地址
  * @param id
  */
-export function getSongUrl(id: string) {
+export function getSongUrl(id: string | number) {
   return http.get<{ data: { url: string }[] }>(`/song/url?id=${id}`)
 }
