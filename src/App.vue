@@ -6,7 +6,7 @@ import { usePlayer } from './store/player'
 
 const playerStore = usePlayer()
 const { audio } = playerStore
-const { playing } = storeToRefs(playerStore)
+const { playing, currentTime } = storeToRefs(playerStore)
 
 onLaunch(() => {
   defaultLogin()
@@ -32,6 +32,10 @@ function setupAudio() {
 
   audio.onPause(() => {
     playing.value = false
+  })
+
+  audio.onTimeUpdate(() => {
+    currentTime.value = audio.currentTime
   })
 }
 </script>
@@ -99,15 +103,5 @@ cover-view {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-@keyframes rotate {
-  0% {
-    transform: rotate(0);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
 }
 </style>

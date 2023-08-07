@@ -11,6 +11,7 @@ export const usePlayer = defineStore('player', () => {
   const playList = ref<Song[]>([]) // 当前播放列表
   const playing = ref(false) // 是否正在播放
   const currentIndex = ref(0) // 当前播放的索引
+  const currentTime = ref(0) // 当前播放时间
 
   // 当前播放的歌曲
   const currentSong = computed(() => playList.value[currentIndex.value] ?? {})
@@ -45,8 +46,11 @@ export const usePlayer = defineStore('player', () => {
 
   return {
     audio,
+    playList,
+    currentIndex,
     playing,
     currentSong,
+    currentTime,
     onPlay,
     togglePlay,
   }

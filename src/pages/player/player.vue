@@ -21,7 +21,10 @@
         rotate-0 origin-[12px_12px] transition-transform duration-0.3s"
         :class="{ '-rotate-30!': !playing }"
       />
-      <view style="animation: rotate 20s linear infinite" class="w-full h-70 bg-[url(~@/static/circle.png)] bg-cover bg-no-repeat relative">
+      <view
+        class="w-full h-70 bg-[url(~@/static/circle.png)] bg-cover bg-no-repeat relative"
+        :class="{ rotate: playing }"
+      >
         <image class="w-64% h-64% rd-50% pos-center" :src="`${currentSong.album?.picUrl}?param=200y200`" />
       </view>
     </view>
@@ -36,16 +39,21 @@
       </view>
 
       <view class="flex-v-center px-3 text-xs">
-        <view>00:00</view>
+        <view class="w-8">
+          {{ formatTime(currentTime) }}
+        </view>
         <view class="flex-1">
           <slider
             class="mx-2"
             background-color="rgba(255, 255, 255, 0.3)"
             active-color="var(--color-base)"
             :block-size="12"
+            :value="progress"
           />
         </view>
-        <view>05:00</view>
+        <view class="w-8">
+          {{ formatTime(currentSong.dt / 1000) }}
+        </view>
       </view>
 
       <view class="flex-v-center justify-around">
@@ -66,10 +74,17 @@
 <script setup lang="ts">
 import { onLoad } from '@dcloudio/uni-app'
 import { usePlayer } from '@/store/player'
+import { formatTime } from '@/utils/util'
 
 const playerStore = usePlayer()
 const { togglePlay } = playerStore
-const { currentSong, playing } = storeToRefs(playerStore)
+const { currentSong, playing, currentTime } = storeToRefs(playerStore)
+
+const progress = computed(() => {
+  const duration = currentSong.value.dt / 1000
+  const time = (currentTime.value / duration)
+  return Number.parseFloat((time * 100).toFixed(1))
+})
 
 onLoad(() => {
   if (!currentSong.value.id) uni.switchTab({ url: '/pages/index/index' })
@@ -79,3 +94,19 @@ function onBack() {
   uni.navigateBack()
 }
 </script>
+
+<style scoped>
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate{
+  animation: rotate 20s linear infinite
+}
+</style>

@@ -35,6 +35,11 @@ export interface Song {
    * 歌手列表
    */
   singers: string[]
+
+  /**
+   * 歌曲总时长
+   */
+  dt: number
 }
 
 /**
