@@ -6,7 +6,7 @@ import { usePlayer } from './store/player'
 
 const playerStore = usePlayer()
 const { audio } = playerStore
-const { playing, currentTime } = storeToRefs(playerStore)
+const { playing, currentTime, progressDragging } = storeToRefs(playerStore)
 
 onLaunch(() => {
   defaultLogin()
@@ -35,6 +35,7 @@ function setupAudio() {
   })
 
   audio.onTimeUpdate(() => {
+    if (progressDragging.value) return
     currentTime.value = audio.currentTime
   })
 }

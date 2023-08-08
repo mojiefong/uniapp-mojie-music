@@ -12,6 +12,7 @@ export const usePlayer = defineStore('player', () => {
   const playing = ref(false) // 是否正在播放
   const currentIndex = ref(0) // 当前播放的索引
   const currentTime = ref(0) // 当前播放时间
+  const progressDragging = ref(false) // 是否正在拖动播放的进度条
 
   // 当前播放的歌曲
   const currentSong = computed(() => playList.value[currentIndex.value] ?? {})
@@ -51,6 +52,7 @@ export const usePlayer = defineStore('player', () => {
     playing,
     currentSong,
     currentTime,
+    progressDragging,
     onPlay,
     togglePlay,
   }

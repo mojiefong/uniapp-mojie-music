@@ -49,6 +49,8 @@
             active-color="var(--color-base)"
             :block-size="12"
             :value="progress"
+            @change="onChange"
+            @changing="onChanging"
           />
         </view>
         <view class="w-8">
@@ -77,8 +79,8 @@ import { usePlayer } from '@/store/player'
 import { formatTime } from '@/utils/util'
 
 const playerStore = usePlayer()
-const { togglePlay } = playerStore
-const { currentSong, playing, currentTime } = storeToRefs(playerStore)
+const { togglePlay, audio } = playerStore
+const { currentSong, playing, currentTime, progressDragging } = storeToRefs(playerStore)
 
 const progress = computed(() => {
   const duration = currentSong.value.dt / 1000
@@ -92,6 +94,26 @@ onLoad(() => {
 
 function onBack() {
   uni.navigateBack()
+}
+
+// 拖动进度条时修改当前播放时间
+function setCurrentTime(time: number) {
+  const ratio = time / 100
+  const duration = currentSong.value.dt / 1000
+  currentTime.value = ratio * duration
+}
+
+// 正在拖动进度条
+function onChanging(e: any) {
+  progressDragging.value = true
+  setCurrentTime(e.detail.value)
+}
+
+// 结束拖动进度条
+function onChange(e: any) {
+  progressDragging.value = false
+  setCurrentTime(e.detail.value)
+  audio.currentTime = currentTime.value
 }
 </script>
 
