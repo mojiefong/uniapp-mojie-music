@@ -47,6 +47,9 @@ dependencies:
   '@dcloudio/uni-quickapp-webview':
     specifier: 3.0.0-alpha-3080720230627002
     version: 3.0.0-alpha-3080720230627002(postcss@8.4.24)(ts-node@10.9.1)(vue@3.3.4)
+  '@mojiee/utils':
+    specifier: ^0.6.1
+    version: 0.6.1
   pinia:
     specifier: ^2.0.33
     version: 2.0.33(typescript@5.1.6)(vue@3.3.4)
@@ -344,7 +347,7 @@ packages:
       '@babel/helper-plugin-utils': 7.22.5
       debug: 4.3.4
       lodash.debounce: 4.0.8
-      resolve: 1.22.2
+      resolve: 1.22.3
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3154,6 +3157,10 @@ packages:
       dayjs: 1.11.9
     dev: true
 
+  /@mojiee/utils@0.6.1:
+    resolution: {integrity: sha512-lZDMmVdr+PDRfN1kD6GMnKI6f3tnKKV+gJwbLzSlxfF4x6KdGYfbZ164sIpBRvoCHGXvPdnMOA4dRk89ALB5TQ==}
+    dev: false
+
   /@nicolo-ribaudo/semver-v6@6.3.3:
     resolution: {integrity: sha512-3Yc1fUTs69MG/uZbJlLSI3JISMn2UV2rg+1D/vROUqZyh3l6iYHCs7GMp+M40ZD7yOdDbYjJcU1oTJhrc+dGKg==}
     hasBin: true
@@ -5143,7 +5150,7 @@ packages:
     dependencies:
       debug: 3.2.7
       is-core-module: 2.12.1
-      resolve: 1.22.2
+      resolve: 1.22.3
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6698,7 +6705,7 @@ packages:
       jest-pnp-resolver: 1.2.3(jest-resolve@27.5.1)
       jest-util: 27.5.1
       jest-validate: 27.5.1
-      resolve: 1.22.2
+      resolve: 1.22.3
       resolve.exports: 1.1.1
       slash: 3.0.0
     dev: true
@@ -7463,7 +7470,7 @@ packages:
     resolution: {integrity: sha512-/5CMN3T0R4XTj4DcGaexo+roZSdSFW/0AOOTROrjxzCG1wrWXEsGbRKevjlIL+ZDE4sZlJr5ED4YW0yqmkK+eA==}
     dependencies:
       hosted-git-info: 2.8.9
-      resolve: 1.22.2
+      resolve: 1.22.3
       semver: 5.7.1
       validate-npm-package-license: 3.0.4
     dev: true

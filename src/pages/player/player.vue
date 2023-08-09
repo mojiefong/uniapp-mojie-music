@@ -60,13 +60,13 @@
 
       <view class="flex-v-center justify-around">
         <text class="iconfont icon-random text-2xl" />
-        <text class="iconfont icon-next text-2xl" />
+        <text class="iconfont icon-prev text-2xl" @click="onPrev" />
         <text
           class="iconfont text-5xl"
           :class="playing ? 'icon-pause' : 'icon-play'"
           @click="togglePlay"
         />
-        <text class="iconfont icon-prev text-2xl" />
+        <text class="iconfont icon-next text-2xl" @click="onNext" />
         <text class="iconfont icon-palylist text-2xl" />
       </view>
     </view>
@@ -79,7 +79,7 @@ import { usePlayer } from '@/store/player'
 import { formatTime } from '@/utils/util'
 
 const playerStore = usePlayer()
-const { togglePlay, audio } = playerStore
+const { audio, togglePlay, onPrev, onNext } = playerStore
 const { currentSong, playing, currentTime, progressDragging } = storeToRefs(playerStore)
 
 const progress = computed(() => {

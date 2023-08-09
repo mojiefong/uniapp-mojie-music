@@ -5,8 +5,8 @@ import { getCookie, setCookie } from './utils/storage'
 import { usePlayer } from './store/player'
 
 const playerStore = usePlayer()
-const { audio } = playerStore
-const { playing, currentTime, progressDragging } = storeToRefs(playerStore)
+const { audio, onNext } = playerStore
+const { playing, currentTime, progressDragging, switching } = storeToRefs(playerStore)
 
 onLaunch(() => {
   defaultLogin()
@@ -27,6 +27,7 @@ async function defaultLogin() {
  */
 function setupAudio() {
   audio.onPlay(() => {
+    if (switching.value) return
     playing.value = true
   })
 
@@ -38,11 +39,15 @@ function setupAudio() {
     if (progressDragging.value) return
     currentTime.value = audio.currentTime
   })
+
+  audio.onEnded(() => {
+    onNext()
+  })
 }
 </script>
 
 <style>
-@import "//at.alicdn.com/t/c/font_4158018_o4lxem8vqkb.css";
+@import "//at.alicdn.com/t/c/font_4158018_eh8mc69xcr.css";
 
 page, html, body {
   /* #ec5241 #f4606c */
