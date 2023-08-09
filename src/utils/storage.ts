@@ -3,21 +3,13 @@
  * @Date: 2023-07-13 22:22:57
  */
 
-enum StorageKey {
-  Auth = '__AUTH__',
-  SearchHistory = '__SEARCH_HISTORY__',
-}
-
-/**
- * 最大历史搜索缓存长度
- */
-const MAX_SEARCH_HISTORY_LENGTH = 10
+import { CacheType, MAX_SEARCH_HISTORY_LENGTH } from '@/enums'
 
 /**
  * 获取cookie信息
  */
 export function getCookie() {
-  return uni.getStorageSync(StorageKey.Auth)
+  return uni.getStorageSync(CacheType.AuthKey)
 }
 
 /**
@@ -25,14 +17,14 @@ export function getCookie() {
  * @param cookie
  */
 export function setCookie(cookie: string) {
-  uni.setStorageSync(StorageKey.Auth, cookie)
+  uni.setStorageSync(CacheType.AuthKey, cookie)
 }
 
 /**
  * 获取搜索历史列表
  */
 export function getSearchHistory(): string[] {
-  const searches: string[] = uni.getStorageSync(StorageKey.SearchHistory)
+  const searches: string[] = uni.getStorageSync(CacheType.SearchKey)
   if (searches && searches.length) return JSON.parse(searches as unknown as string)
   return []
 }
@@ -47,5 +39,5 @@ export function setSearchHistory(keywords: string) {
   if (index > -1) return
   searches.unshift(keywords)
   searches.length > MAX_SEARCH_HISTORY_LENGTH && searches.pop()
-  uni.setStorageSync(StorageKey.SearchHistory, searches)
+  uni.setStorageSync(CacheType.SearchKey, searches)
 }
