@@ -67,8 +67,8 @@ export const usePlayer = defineStore('player', () => {
     playing.value = false
     let index = unref(currentIndex) + 1
     // 如果是最后一首歌就设置成第一首歌
-    const prevIndex = index === playList.value.length ? index = 0 : index
-    currentIndex.value = prevIndex
+    const nextIndex = index === playList.value.length ? index = 0 : index
+    currentIndex.value = nextIndex
     fetchSongUrl()
     await sleep(300)
     playing.value = true
