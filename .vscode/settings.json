@@ -18,7 +18,8 @@
     "mojiee",
     "pinia",
     "unocss",
-    "unplugin"
+    "unplugin",
+    "unref"
   ],
   "cSpell.ignorePaths": [
     "package.json",

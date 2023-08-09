@@ -21,6 +21,11 @@ export enum CacheType {
    * 搜索历史
    */
   SearchKey = '__SEARCH_HISTORY__',
+
+  /**
+   * 播放模式
+   */
+  PlayModeKey = '__PLAY_MODE__',
 }
 
 /**

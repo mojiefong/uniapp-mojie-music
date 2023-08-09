@@ -3,6 +3,7 @@
  * @Date: 2023-07-13 22:22:57
  */
 
+import type { PlayMode } from '@/enums'
 import { CacheType, MAX_SEARCH_HISTORY_LENGTH } from '@/enums'
 
 /**
@@ -18,6 +19,21 @@ export function getCookie() {
  */
 export function setCookie(cookie: string) {
   uni.setStorageSync(CacheType.AuthKey, cookie)
+}
+
+/**
+ * 获取播放模式
+ */
+export function getPlayMode() {
+  return uni.getStorageSync(CacheType.PlayModeKey)
+}
+
+/**
+ * 设置播放模式
+ * @param mode
+ */
+export function setPlayMode(mode: PlayMode) {
+  uni.setStorageSync(CacheType.PlayModeKey, mode)
 }
 
 /**

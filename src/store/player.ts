@@ -6,6 +6,8 @@
 import { sleep } from '@mojiee/utils'
 import type { Song } from '@/models/user'
 import { getSongUrl } from '@/api/home'
+import { PlayMode } from '@/enums'
+import { getPlayMode } from '@/utils/storage'
 
 export const usePlayer = defineStore('player', () => {
   const audio = uni.getBackgroundAudioManager?.() || uni.createInnerAudioContext()
@@ -15,6 +17,7 @@ export const usePlayer = defineStore('player', () => {
   const currentTime = ref(0) // 当前播放时间
   const progressDragging = ref(false) // 是否正在拖动播放的进度条
   const switching = ref(false) // 是否正在切歌
+  const playMode = ref(getPlayMode() || PlayMode.Sequence) // 播放模式
 
   // 当前播放的歌曲
   const currentSong = computed(() => playList.value[currentIndex.value] ?? {})
@@ -84,6 +87,7 @@ export const usePlayer = defineStore('player', () => {
     currentTime,
     progressDragging,
     switching,
+    playMode,
     onPlay,
     togglePlay,
     onPrev,

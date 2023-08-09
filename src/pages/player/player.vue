@@ -59,7 +59,7 @@
       </view>
 
       <view class="flex-v-center justify-around">
-        <text class="iconfont icon-random text-2xl" />
+        <text class="iconfont text-2xl" :class="modeIcon" @click="changePlayMode" />
         <text class="iconfont icon-prev text-2xl" @click="onPrev" />
         <text
           class="iconfont text-5xl"
@@ -77,15 +77,39 @@
 import { onLoad } from '@dcloudio/uni-app'
 import { usePlayer } from '@/store/player'
 import { formatTime } from '@/utils/util'
+import { PlayMode } from '@/enums'
+import { setPlayMode } from '@/utils/storage'
 
 const playerStore = usePlayer()
 const { audio, togglePlay, onPrev, onNext } = playerStore
-const { currentSong, playing, currentTime, progressDragging } = storeToRefs(playerStore)
+const {
+  currentSong,
+  playing,
+  currentTime,
+  progressDragging,
+  playMode,
+} = storeToRefs(playerStore)
 
 const progress = computed(() => {
   const duration = currentSong.value.dt / 1000
   const time = (currentTime.value / duration)
   return Number.parseFloat((time * 100).toFixed(1))
+})
+const modeIcon = computed(() => {
+  const type: Record<string, string> = {
+    [PlayMode.Sequence]: 'icon-sequence',
+    [PlayMode.Loop]: 'icon-loop',
+    [PlayMode.Random]: 'icon-random',
+  }
+  return type[playMode.value]
+})
+const modeText = computed(() => {
+  const type: Record<string, string> = {
+    [PlayMode.Sequence]: '顺序播放',
+    [PlayMode.Loop]: '循环播放',
+    [PlayMode.Random]: '随机播放',
+  }
+  return type[playMode.value]
 })
 
 onLoad(() => {
@@ -114,6 +138,16 @@ function onChange(e: any) {
   progressDragging.value = false
   setCurrentTime(e.detail.value)
   audio.currentTime = currentTime.value
+}
+
+function changePlayMode() {
+  const mode = (unref(playMode) + 1) % 3
+  playMode.value = mode
+  setPlayMode(mode)
+  uni.showToast({
+    title: modeText.value,
+    icon: 'none',
+  })
 }
 </script>
 
