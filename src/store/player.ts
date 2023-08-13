@@ -18,6 +18,7 @@ export const usePlayer = defineStore('player', () => {
   const progressDragging = ref(false) // 是否正在拖动播放的进度条
   const switching = ref(false) // 是否正在切歌
   const playMode = ref(getPlayMode() || PlayMode.Sequence) // 播放模式
+  const randomPlayIndexes = ref<number[]>([]) // 随机播放时，根据播放列表随机生成的索引列表
 
   // 当前播放的歌曲
   const currentSong = computed(() => playList.value[currentIndex.value] ?? {})
@@ -55,7 +56,25 @@ export const usePlayer = defineStore('player', () => {
   async function onPrev() {
     switching.value = true
     playing.value = false
-    const index = unref(currentIndex) - 1
+
+    let index = unref(currentIndex) - 1
+
+    // 判断是否为随机播放
+    if (playMode.value === PlayMode.Random) {
+      const _randomPlayIndexes = randomPlayIndexes.value
+      const length = _randomPlayIndexes.length
+      let randomIndex = (currentIndex.value - 1 + length) % length
+
+      // 如果上一个索引与当前索引相同
+      if (_randomPlayIndexes[randomIndex] === currentIndex.value) {
+        // 如果相同，将随机索引设置为当前索引，以避免重复播放相同的歌曲
+        randomIndex = currentIndex.value
+      }
+
+      const prevIndex = _randomPlayIndexes[randomIndex]
+      index = prevIndex
+    }
+
     // 如果是第一首歌就设置成最后一首歌
     const prevIndex = index < 0 ? playList.value.length - 1 : index
     currentIndex.value = prevIndex
@@ -67,8 +86,25 @@ export const usePlayer = defineStore('player', () => {
 
   // 下一曲
   async function onNext() {
+    switching.value = true
     playing.value = false
     let index = unref(currentIndex) + 1
+
+    // 判断是否为随机播放
+    if (playMode.value === PlayMode.Random) {
+      const _randomPlayIndexes = randomPlayIndexes.value
+      let randomIndex = (currentIndex.value + 1) % _randomPlayIndexes.length
+
+      // 如果下一个索引与当前索引相同
+      if (_randomPlayIndexes[randomIndex] === currentIndex.value) {
+        // 如果相同，将随机索引设置为当前索引，以避免重复播放相同的歌曲
+        randomIndex = currentIndex.value
+      }
+
+      const nextIndex = _randomPlayIndexes[randomIndex]
+      index = nextIndex
+    }
+
     // 如果是最后一首歌就设置成第一首歌
     const nextIndex = index === playList.value.length ? index = 0 : index
     currentIndex.value = nextIndex
@@ -76,6 +112,12 @@ export const usePlayer = defineStore('player', () => {
     await sleep(300)
     playing.value = true
     switching.value = false
+  }
+
+  // 循环播放
+  function onLoopPlay() {
+    currentTime.value = 0
+    audio.play()
   }
 
   return {
@@ -88,9 +130,11 @@ export const usePlayer = defineStore('player', () => {
     progressDragging,
     switching,
     playMode,
+    randomPlayIndexes,
     onPlay,
     togglePlay,
     onPrev,
     onNext,
+    onLoopPlay,
   }
 })

@@ -3,10 +3,20 @@ import { onLaunch } from '@dcloudio/uni-app'
 import { anonymousLogin } from './api/user'
 import { getCookie, setCookie } from './utils/storage'
 import { usePlayer } from './store/player'
+import { getRandomIndexes } from './utils/util'
+import { PlayMode } from './enums'
 
 const playerStore = usePlayer()
 const { audio, onNext } = playerStore
-const { playing, currentTime, progressDragging, switching } = storeToRefs(playerStore)
+const {
+  playing,
+  currentTime,
+  progressDragging,
+  switching,
+  randomPlayIndexes,
+  playList,
+  playMode,
+} = storeToRefs(playerStore)
 
 onLaunch(() => {
   defaultLogin()
@@ -28,6 +38,12 @@ async function defaultLogin() {
 function setupAudio() {
   audio.onPlay(() => {
     if (switching.value) return
+
+    // 初始化播放时，如果是随机播放并且没有随机播放索引列表，则设置随机播放索引列表
+    if (playMode.value === PlayMode.Random && !randomPlayIndexes.value.length) {
+      randomPlayIndexes.value = getRandomIndexes(playList.value.length)
+    }
+
     playing.value = true
   })
 

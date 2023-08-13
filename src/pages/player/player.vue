@@ -76,7 +76,7 @@
 <script setup lang="ts">
 import { onLoad } from '@dcloudio/uni-app'
 import { usePlayer } from '@/store/player'
-import { formatTime } from '@/utils/util'
+import { formatTime, getRandomIndexes } from '@/utils/util'
 import { PlayMode } from '@/enums'
 import { setPlayMode } from '@/utils/storage'
 
@@ -88,6 +88,8 @@ const {
   currentTime,
   progressDragging,
   playMode,
+  playList,
+  randomPlayIndexes,
 } = storeToRefs(playerStore)
 
 const progress = computed(() => {
@@ -140,9 +142,15 @@ function onChange(e: any) {
   audio.currentTime = currentTime.value
 }
 
+// 改变播放模式
 function changePlayMode() {
   const mode = (unref(playMode) + 1) % 3
+  // 如果是随机播放则设置随机播放索引列表
+  if (PlayMode.Random === mode) {
+    randomPlayIndexes.value = getRandomIndexes(playList.value.length)
+  }
   playMode.value = mode
+  // 将播放模式存储到本地中
   setPlayMode(mode)
   uni.showToast({
     title: modeText.value,
