@@ -10,6 +10,7 @@
     "source.fixAll.eslint": true,
     "source.organizeImports": false
   },
+  "css.lint.unknownAtRules": "ignore",
   "cSpell.words": [
     "antfu",
     "dcloudio",
