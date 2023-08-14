@@ -15,7 +15,7 @@
     </view>
 
     <view
-      v-for="(song, index) in songs" :key="song.id"
+      v-for="(song, index) in songList" :key="song.id"
       class="song flex-v-center box-content"
       @click="onClick(song, index)"
     >
@@ -50,13 +50,14 @@ interface Props {
   songs: Song[]
   showIndex?: boolean
   allPlay?: boolean
+  slice?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
   allPlay: true,
 })
-
 const { onPlay } = usePlayer()
+const songList = computed(() => props.slice ? props.songs.slice(0, props.slice) : props.songs)
 
 function onClick(song: Song, index: number) {
   onPlay(props.songs, index)

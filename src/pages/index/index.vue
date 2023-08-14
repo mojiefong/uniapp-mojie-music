@@ -8,7 +8,7 @@
     </view>
 
     <mo-card title="每日推荐" @more="toRecommendSong">
-      <mo-songs :all-play="false" :songs="recommendSongs.slice(0, 3)" />
+      <mo-songs :all-play="false" :slice="3" :songs="recommendSongs" />
     </mo-card>
 
     <mo-card title="推荐歌单" @more="toRecommendSongList">
