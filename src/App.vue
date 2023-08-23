@@ -7,7 +7,7 @@ import { getRandomIndexes } from './utils/util'
 import { PlayMode } from './enums'
 
 const playerStore = usePlayer()
-const { audio, onNext } = playerStore
+const { audio, onNext, onLoopPlay } = playerStore
 const {
   playing,
   currentTime,
@@ -57,13 +57,14 @@ function setupAudio() {
   })
 
   audio.onEnded(() => {
-    onNext()
+    // 判断是否循环播放
+    playMode.value === PlayMode.Loop ? onLoopPlay() : onNext()
   })
 }
 </script>
 
 <style>
-@import "//at.alicdn.com/t/c/font_4158018_eh8mc69xcr.css";
+@import "//at.alicdn.com/t/c/font_4158018_rl3q31oasp.css";
 
 page, html, body {
   /* #ec5241 #f4606c */

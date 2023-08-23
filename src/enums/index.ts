@@ -47,3 +47,23 @@ export enum PlayMode {
    */
   Random,
 }
+
+/**
+ * 歌曲列表展示的类型
+ */
+export enum SongsType {
+  /**
+   * 不展示
+   */
+  None,
+
+  /**
+   * 索引类型
+   */
+  Index,
+
+  /**
+   * 图片类型
+   */
+  Image,
+}

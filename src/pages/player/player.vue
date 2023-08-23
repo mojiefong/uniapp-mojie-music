@@ -16,7 +16,7 @@
 
     <view class="w-70 relative pt-30 mxa">
       <view
-        class="w-18.5 h-30 absolute left-49% top-15 z-100
+        class="w-18.5 h-30 absolute left-49% top-15 z-20
         bg-[url(~@/static/stylus.png)] bg-cover bg-no-repeat
         rotate-0 origin-[12px_12px] transition-transform duration-0.3s"
         :class="{ '-rotate-30!': !playing }"
@@ -67,51 +67,29 @@
           @click="togglePlay"
         />
         <text class="iconfont icon-next text-2xl" @click="onNext" />
-        <text class="iconfont icon-palylist text-2xl" />
+        <text class="iconfont icon-playlist text-2xl" @click="visible = true" />
       </view>
     </view>
+
+    <mo-play-list v-model="visible" />
   </view>
 </template>
 
 <script setup lang="ts">
 import { onLoad } from '@dcloudio/uni-app'
 import { usePlayer } from '@/store/player'
-import { formatTime, getRandomIndexes } from '@/utils/util'
-import { PlayMode } from '@/enums'
-import { setPlayMode } from '@/utils/storage'
+import { formatTime } from '@/utils/util'
+
+const visible = ref(false)
 
 const playerStore = usePlayer()
-const { audio, togglePlay, onPrev, onNext } = playerStore
-const {
-  currentSong,
-  playing,
-  currentTime,
-  progressDragging,
-  playMode,
-  playList,
-  randomPlayIndexes,
-} = storeToRefs(playerStore)
+const { audio, togglePlay, onPrev, onNext, changePlayMode } = playerStore
+const { currentSong, playing, currentTime, progressDragging, modeIcon } = storeToRefs(playerStore)
 
 const progress = computed(() => {
   const duration = currentSong.value.dt / 1000
   const time = (currentTime.value / duration)
   return Number.parseFloat((time * 100).toFixed(1))
-})
-const modeIcon = computed(() => {
-  const type: Record<string, string> = {
-    [PlayMode.Sequence]: 'icon-sequence',
-    [PlayMode.Loop]: 'icon-loop',
-    [PlayMode.Random]: 'icon-random',
-  }
-  return type[playMode.value]
-})
-const modeText = computed(() => {
-  const type: Record<string, string> = {
-    [PlayMode.Sequence]: '顺序播放',
-    [PlayMode.Loop]: '循环播放',
-    [PlayMode.Random]: '随机播放',
-  }
-  return type[playMode.value]
 })
 
 onLoad(() => {
@@ -140,22 +118,6 @@ function onChange(e: any) {
   progressDragging.value = false
   setCurrentTime(e.detail.value)
   audio.currentTime = currentTime.value
-}
-
-// 改变播放模式
-function changePlayMode() {
-  const mode = (unref(playMode) + 1) % 3
-  // 如果是随机播放则设置随机播放索引列表
-  if (PlayMode.Random === mode) {
-    randomPlayIndexes.value = getRandomIndexes(playList.value.length)
-  }
-  playMode.value = mode
-  // 将播放模式存储到本地中
-  setPlayMode(mode)
-  uni.showToast({
-    title: modeText.value,
-    icon: 'none',
-  })
 }
 </script>
 

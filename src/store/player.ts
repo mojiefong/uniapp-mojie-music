@@ -7,7 +7,8 @@ import { sleep } from '@mojiee/utils'
 import type { Song } from '@/models/user'
 import { getSongUrl } from '@/api/home'
 import { PlayMode } from '@/enums'
-import { getPlayMode } from '@/utils/storage'
+import { getPlayMode, setPlayMode } from '@/utils/storage'
+import { getRandomIndexes } from '@/utils/util'
 
 export const usePlayer = defineStore('player', () => {
   const audio = uni.getBackgroundAudioManager?.() || uni.createInnerAudioContext()
@@ -20,10 +21,30 @@ export const usePlayer = defineStore('player', () => {
   const playMode = ref(getPlayMode() || PlayMode.Sequence) // 播放模式
   const randomPlayIndexes = ref<number[]>([]) // 随机播放时，根据播放列表随机生成的索引列表
 
-  // 当前播放的歌曲
+  /** 当前播放的歌曲 */
   const currentSong = computed(() => playList.value[currentIndex.value] ?? {})
+  /** 播放模式的icon */
+  const modeIcon = computed(() => {
+    const type: Record<string, string> = {
+      [PlayMode.Sequence]: 'icon-sequence',
+      [PlayMode.Loop]: 'icon-loop',
+      [PlayMode.Random]: 'icon-random',
+    }
+    return type[playMode.value]
+  })
+  /** 播放模式的文字 */
+  const modeText = computed(() => {
+    const type: Record<string, string> = {
+      [PlayMode.Sequence]: '顺序播放',
+      [PlayMode.Loop]: '循环播放',
+      [PlayMode.Random]: '随机播放',
+    }
+    return type[playMode.value]
+  })
 
-  // 获取歌曲播放的url地址
+  /**
+   * 获取歌曲播放的url地址
+   */
   async function fetchSongUrl() {
     try {
       const { data } = await getSongUrl(currentSong.value.id)
@@ -39,7 +60,11 @@ export const usePlayer = defineStore('player', () => {
     }
   }
 
-  // 触发播放
+  /**
+   * 触发播放
+   * @param songs 歌曲列表
+   * @param index 索引
+   */
   function onPlay(songs: Song[], index: number) {
     playList.value = songs
     currentIndex.value = index
@@ -47,12 +72,16 @@ export const usePlayer = defineStore('player', () => {
     fetchSongUrl()
   }
 
-  // 切换播放
+  /**
+   * 切换播放
+   */
   function togglePlay() {
     playing.value ? audio.pause() : audio.play()
   }
 
-  // 上一曲
+  /**
+   * 上一曲
+   */
   async function onPrev() {
     switching.value = true
     playing.value = false
@@ -84,7 +113,9 @@ export const usePlayer = defineStore('player', () => {
     switching.value = false
   }
 
-  // 下一曲
+  /**
+   * 下一曲
+   */
   async function onNext() {
     switching.value = true
     playing.value = false
@@ -114,10 +145,41 @@ export const usePlayer = defineStore('player', () => {
     switching.value = false
   }
 
-  // 循环播放
+  /**
+   * 循环播放
+   */
   function onLoopPlay() {
     currentTime.value = 0
     audio.play()
+  }
+
+  /**
+   * 改变播放模式
+   */
+  function changePlayMode() {
+    const mode = (unref(playMode) + 1) % 3
+    // 如果是随机播放则设置随机播放索引列表
+    if (PlayMode.Random === mode) {
+      randomPlayIndexes.value = getRandomIndexes(playList.value.length)
+    }
+    playMode.value = mode
+    // 将播放模式存储到本地中
+    setPlayMode(mode)
+    uni.showToast({
+      title: modeText.value,
+      icon: 'none',
+    })
+  }
+
+  /**
+   * 清除播放列表
+   */
+  function clearSongList() {
+    playList.value = []
+    currentIndex.value = 0
+    playing.value = false
+    currentTime.value = 0
+    audio.stop()
   }
 
   return {
@@ -131,10 +193,14 @@ export const usePlayer = defineStore('player', () => {
     switching,
     playMode,
     randomPlayIndexes,
+    modeIcon,
+    modeText,
     onPlay,
     togglePlay,
     onPrev,
     onNext,
     onLoopPlay,
+    changePlayMode,
+    clearSongList,
   }
 })

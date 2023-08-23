@@ -12,7 +12,7 @@
     </view>
 
     <view class="px-2 pb-10 pt-60">
-      <mo-songs v-if="detail" :songs="detail.tracks" show-index />
+      <mo-songs v-if="detail" :songs="detail.tracks" :type="SongsType.Index" />
     </view>
   </view>
 </template>
@@ -20,8 +20,9 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue'
 import { onLoad, onPageScroll } from '@dcloudio/uni-app'
-import { getSongListDetail } from '@/api/home'
 import type { SongListDetail } from '@/models/user'
+import { getSongListDetail } from '@/api/home'
+import { SongsType } from '@/enums'
 
 const detail = ref<SongListDetail>()
 const titleStyle = ref<CSSProperties>()

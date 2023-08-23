@@ -20,16 +20,16 @@
       @click="onClick(song, index)"
     >
       <text
-        v-if="showIndex"
+        v-if="type === SongsType.Index"
         class="w-4 text-center mr-1 text-light text-sm"
         :class="{ 'text-xs': index.toString().length > 2 }"
       >
         {{ index + 1 }}
       </text>
-      <image v-else class="w-10 h-10 rd-2" :src="`${song.album.picUrl}?param=60y60`" />
+      <image v-if="type === SongsType.Image" class="w-10 h-10 rd-2" :src="`${song.album.picUrl}?param=60y60`" />
       <view
         class="info flex-1 flex-h-center flex-col ml-2 b-b b-b-solid b-b-primary py-1 box-content"
-        :class="{ 'h-10': !showIndex }"
+        :class="{ 'h-10': type !== SongsType.Index }"
       >
         <text class="text-sm">
           {{ song.name }}
@@ -44,18 +44,21 @@
 
 <script setup lang="ts">
 import type { Song } from '@/models/user'
+import { SongsType } from '@/enums'
 import { usePlayer } from '@/store/player'
 
 interface Props {
   songs: Song[]
-  showIndex?: boolean
+  type?: SongsType
   allPlay?: boolean
   slice?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
   allPlay: true,
+  type: SongsType.Image,
 })
+
 const { onPlay } = usePlayer()
 const songList = computed(() => props.slice ? props.songs.slice(0, props.slice) : props.songs)
 
