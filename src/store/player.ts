@@ -4,7 +4,7 @@
  */
 
 import { sleep } from '@mojiee/utils'
-import type { Song } from '@/models/user'
+import type { Song } from '@/models'
 import { getSongUrl } from '@/api/home'
 import { PlayMode } from '@/enums'
 import { getPlayMode, setPlayMode } from '@/utils/storage'

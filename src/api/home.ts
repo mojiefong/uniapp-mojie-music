@@ -3,7 +3,7 @@
  * @Date: 2023-07-14 22:50:01
  */
 
-import type { HotSearch, Song, SongList, SongListDetail, TopList } from '@/models/user'
+import type { HotSearch, Song, SongList, SongListDetail, TopList } from '@/models'
 import { http } from '@/utils/http'
 
 function transform(list: any) {

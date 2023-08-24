@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import type { SongList } from '@/models/user'
+import type { SongList } from '@/models'
 
 defineProps<{ songList: SongList[] }>()
 const emit = defineEmits<{

@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Song } from '@/models/user'
+import type { Song } from '@/models'
 import { SongsType } from '@/enums'
 import { usePlayer } from '@/store/player'
 

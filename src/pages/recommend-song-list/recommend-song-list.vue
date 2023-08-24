@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import type { SongList } from '@/models/user'
+import type { SongList } from '@/models'
 import { getRecommendSongList } from '@/api/home'
 
 const songList = ref<SongList[]>([])

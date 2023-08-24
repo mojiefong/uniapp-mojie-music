@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { onLoad } from '@dcloudio/uni-app'
-import type { TopList } from '@/models/user'
+import type { TopList } from '@/models'
 import { getTopList } from '@/api/home'
 
 const topList = ref<TopList[]>([])

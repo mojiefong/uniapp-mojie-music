@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue'
 import { onLoad, onPageScroll } from '@dcloudio/uni-app'
-import type { SongListDetail } from '@/models/user'
+import type { SongListDetail } from '@/models'
 import { getSongListDetail } from '@/api/home'
 import { SongsType } from '@/enums'
 

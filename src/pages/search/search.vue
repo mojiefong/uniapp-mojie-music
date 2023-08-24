@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import type { HotSearch } from '@/models/user'
+import type { HotSearch } from '@/models'
 import { getHotSearches } from '@/api/home'
 import { useStorage } from '@/store/storage'
 

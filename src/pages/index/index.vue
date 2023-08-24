@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Song, SongList, TopList } from '@/models/user'
+import type { Song, SongList, TopList } from '@/models'
 import { getRecommendSongList, getRecommendSongs, getTopList } from '@/api/home'
 
 const recommendSongs = ref<Song[]>([])

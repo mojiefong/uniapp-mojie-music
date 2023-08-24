@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { onLoad } from '@dcloudio/uni-app'
-import type { Song } from '@/models/user'
+import type { Song } from '@/models'
 import { getRecommendSongs } from '@/api/home'
 
 const recommendSongs = ref<Song[]>([])
