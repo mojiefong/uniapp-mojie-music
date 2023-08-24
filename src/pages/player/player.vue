@@ -77,20 +77,16 @@
 
 <script setup lang="ts">
 import { onLoad } from '@dcloudio/uni-app'
+import { useProgress } from './hooks/use-progress'
 import { usePlayer } from '@/store/player'
 import { formatTime } from '@/utils/util'
 
 const visible = ref(false)
 
 const playerStore = usePlayer()
-const { audio, togglePlay, onPrev, onNext, changePlayMode } = playerStore
-const { currentSong, playing, currentTime, progressDragging, modeIcon } = storeToRefs(playerStore)
-
-const progress = computed(() => {
-  const duration = currentSong.value.dt / 1000
-  const time = (currentTime.value / duration)
-  return Number.parseFloat((time * 100).toFixed(1))
-})
+const { togglePlay, onPrev, onNext, changePlayMode } = playerStore
+const { currentSong, playing, currentTime, modeIcon } = storeToRefs(playerStore)
+const { progress, onChanging, onChange } = useProgress()
 
 onLoad(() => {
   if (!currentSong.value.id) uni.switchTab({ url: '/pages/index/index' })
@@ -98,26 +94,6 @@ onLoad(() => {
 
 function onBack() {
   uni.navigateBack()
-}
-
-// 拖动进度条时修改当前播放时间
-function setCurrentTime(time: number) {
-  const ratio = time / 100
-  const duration = currentSong.value.dt / 1000
-  currentTime.value = ratio * duration
-}
-
-// 正在拖动进度条
-function onChanging(e: any) {
-  progressDragging.value = true
-  setCurrentTime(e.detail.value)
-}
-
-// 结束拖动进度条
-function onChange(e: any) {
-  progressDragging.value = false
-  setCurrentTime(e.detail.value)
-  audio.currentTime = currentTime.value
 }
 </script>
 
