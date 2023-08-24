@@ -32,7 +32,7 @@
     <view class="w-full absolute bottom-5 left-0 text-[#ffffffcc]">
       <view class="flex justify-around">
         <text />
-        <text class="iconfont icon-collect text-2xl" />
+        <text class="iconfont text-2xl" :class="likeIcon" @click="toggleLike" />
         <text />
         <text class="iconfont icon-comment text-2xl" />
         <text />
@@ -78,6 +78,7 @@
 <script setup lang="ts">
 import { onLoad } from '@dcloudio/uni-app'
 import { useProgress } from './hooks/use-progress'
+import { useLike } from './hooks/use-like'
 import { usePlayer } from '@/store/player'
 import { formatTime } from '@/utils/util'
 
@@ -87,8 +88,10 @@ const playerStore = usePlayer()
 const { togglePlay, onPrev, onNext, changePlayMode } = playerStore
 const { currentSong, playing, currentTime, modeIcon } = storeToRefs(playerStore)
 const { progress, onChanging, onChange } = useProgress()
+const { likeIcon, fetchLikeList, toggleLike } = useLike()
 
 onLoad(() => {
+  fetchLikeList()
   if (!currentSong.value.id) uni.switchTab({ url: '/pages/index/index' })
 })
 
@@ -107,8 +110,20 @@ function onBack() {
     transform: rotate(360deg);
   }
 }
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.3);
+  }
+}
 
 .rotate{
   animation: rotate 20s linear infinite
+}
+.icon-collect-selected{
+  @apply text-theme;
+  animation: heartbeat 0.2s;
 }
 </style>

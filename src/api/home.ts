@@ -69,3 +69,21 @@ export async function getSongDetail(ids: string): Promise<Song[]> {
 export function getSongUrl(id: string | number) {
   return http.get<{ data: { url: string }[] }>(`/song/url?id=${id}`)
 }
+
+/**
+ * 获取喜欢音乐列表
+ * 目前v4.10.1版本有bug，传了uid还是获取的当前登录用户的喜欢音乐列表
+ * 参考：https://github.com/Binaryify/NeteaseCloudMusicApi/issues/1558
+ */
+export function getLikeList() {
+  return http.get<{ ids: number[] }>('/likelist')
+}
+
+/**
+ * 切换喜欢的歌曲
+ * @param id 歌曲id
+ * @param like 默认为 true 即喜欢, 若传 false 则取消喜欢
+ */
+export function changeLike(id: string | number, like: boolean) {
+  return http.get(`/like?id=${id}&like=${like}`)
+}
