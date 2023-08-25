@@ -1,9 +1,11 @@
 <template>
   <view class="wh-full fixed top-0 left-0 bg-black">
+    <!-- 背景底图 -->
     <view class="wh-full absolute top-0 left-0 opacity-50 blur-[20px] -z1">
       <image class="wh-full" :src="`${currentSong.album?.picUrl}?param=200y200`" />
     </view>
 
+    <!-- 头部 -->
     <view class="w-full h-9 text-sm absolute top-0 left-0 z-10 text-white">
       <text class="iconfont icon-left text-3xl absolute left-2" @click="onBack" />
       <view class="w-80% line-height-9 my0 mxa text-center text-ellipsis-single">
@@ -14,6 +16,7 @@
       </view>
     </view>
 
+    <!-- 旋转的光盘 -->
     <view class="w-70 relative pt-30 mxa">
       <view
         class="w-18.5 h-30 absolute left-49% top-15 z-20
@@ -22,14 +25,16 @@
         :class="{ '-rotate-30!': !playing }"
       />
       <view
-        class="w-full h-70 bg-[url(~@/static/circle.png)] bg-cover bg-no-repeat relative"
-        :class="{ rotate: playing }"
+        class="w-full h-70 bg-[url(~@/static/circle.png)] bg-cover bg-no-repeat relative rotate-start"
+        :class="{ 'rotate-paused': !playing }"
       >
         <image class="w-64% h-64% rd-50% pos-center" :src="`${currentSong.album?.picUrl}?param=200y200`" />
       </view>
     </view>
 
+    <!-- 底部操作 -->
     <view class="w-full absolute bottom-5 left-0 text-[#ffffffcc]">
+      <!-- 喜欢和评论栏 -->
       <view class="flex justify-around">
         <text />
         <text class="iconfont text-2xl" :class="likeIcon" @click="toggleLike" />
@@ -38,6 +43,7 @@
         <text />
       </view>
 
+      <!-- 进度条 -->
       <view class="flex-v-center px-3 text-xs">
         <view class="w-8">
           {{ formatTime(currentTime) }}
@@ -58,6 +64,7 @@
         </view>
       </view>
 
+      <!-- 歌曲操作栏 -->
       <view class="flex-v-center justify-around">
         <text class="iconfont text-2xl" :class="modeIcon" @click="changePlayMode" />
         <text class="iconfont icon-prev text-2xl" @click="onPrev" />
@@ -119,8 +126,11 @@ function onBack() {
   }
 }
 
-.rotate{
+.rotate-start{
   animation: rotate 20s linear infinite
+}
+.rotate-paused{
+  animation-play-state: paused
 }
 .icon-collect-selected{
   @apply text-theme;
