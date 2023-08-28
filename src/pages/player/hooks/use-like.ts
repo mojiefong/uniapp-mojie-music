@@ -8,10 +8,9 @@ import { usePlayer } from '@/store/player'
 
 export function useLike() {
   const likeIcon = ref('')
-  const playerStore = usePlayer()
-  const { currentSong } = storeToRefs(playerStore)
+  const { currentSong } = storeToRefs(usePlayer())
 
-  watch(currentSong, () => fetchLikeList, { immediate: true })
+  watch(currentSong, () => fetchLikeList(), { immediate: true })
 
   /**
    * 获取喜欢的音乐列表
