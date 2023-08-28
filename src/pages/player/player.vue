@@ -95,10 +95,9 @@ const playerStore = usePlayer()
 const { togglePlay, onPrev, onNext, changePlayMode } = playerStore
 const { currentSong, playing, currentTime, modeIcon } = storeToRefs(playerStore)
 const { progress, onChanging, onChange } = useProgress()
-const { likeIcon, fetchLikeList, toggleLike } = useLike()
+const { likeIcon, toggleLike } = useLike()
 
 onLoad(() => {
-  fetchLikeList()
   if (!currentSong.value.id) uni.switchTab({ url: '/pages/index/index' })
 })
 

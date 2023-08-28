@@ -11,6 +11,8 @@ export function useLike() {
   const playerStore = usePlayer()
   const { currentSong } = storeToRefs(playerStore)
 
+  watch(currentSong, () => fetchLikeList, { immediate: true })
+
   /**
    * 获取喜欢的音乐列表
    */
@@ -40,7 +42,6 @@ export function useLike() {
 
   return {
     likeIcon,
-    fetchLikeList,
     toggleLike,
   }
 }
