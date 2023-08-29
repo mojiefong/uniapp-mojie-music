@@ -87,3 +87,11 @@ export function getLikeList() {
 export function changeLike(id: string | number, like: boolean) {
   return http.get(`/like?id=${id}&like=${like}`)
 }
+
+/**
+ * 获取歌词
+ * @param id 音乐id
+ */
+export function getLyric(id: string | number) {
+  return http.get<{ lrc: { lyric: string } }>(`/lyric?id=${id}`)
+}
