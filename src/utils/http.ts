@@ -6,24 +6,12 @@
 import { getCookie } from './storage'
 
 type Options = UniNamespace.RequestOptions
-
-// type Response<T = any> = UniNamespace.RequestSuccessCallbackResult & {
-//   data: {
-//     code: number
-//     message?: string
-//   } & {
-//     [key: string]: T
-//   }
-// }
-interface Response<T = any> extends Omit<UniNamespace.RequestSuccessCallbackResult, 'data'> {
+type Response<T = any> = Omit<UniNamespace.RequestSuccessCallbackResult, 'data'> & {
   data: {
     code: number
     message?: string
-  } & {
-    [key: string]: T
-  }
+  } & T
 }
-
 type HttpPromise<T = any> = Promise<Response<T>>
 
 uni.addInterceptor('request', {

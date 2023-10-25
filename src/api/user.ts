@@ -27,7 +27,7 @@ export function getUserInfo() {
  * 手机号登录
  */
 export function phoneLogin(data: UserPhoneLogin) {
-  return http.get('/login/cellphone', {
+  return http.get<{ token: string }>('/login/cellphone', {
     data,
   })
 }
