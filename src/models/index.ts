@@ -111,3 +111,11 @@ export interface HotSearch {
     first: string
   }[]
 }
+
+/**
+ * 用户手机登录
+ */
+export interface UserPhoneLogin {
+  phone: string
+  password: string
+}
