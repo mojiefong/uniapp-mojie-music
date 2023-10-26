@@ -1,8 +1,7 @@
 <template>
   <view class="mx-2 mb-4">
-    <view class="-mx-2 h-30">
+    <view class="-mx-2 h-30 overflow-hidden">
       <image v-if="userInfo" class="wh-full h-60" :src="`${userInfo?.profile.backgroundUrl}?param=400y400`" />
-      <!-- <image v-else class="wh-full h-60" :src="`${userInfo?.profile.backgroundUrl}?param=400y400`" /> -->
     </view>
 
     <view
@@ -82,7 +81,7 @@ async function fetchUserPlayList() {
 
 function onLogin() {
   if (userInfo.value) return
-  uni.navigateTo({
+  uni.redirectTo({
     url: '/pages/login/login',
   })
 }
