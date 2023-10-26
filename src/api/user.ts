@@ -3,7 +3,7 @@
  * @Date: 2023-07-13 21:06:13
  */
 
-import type { UserPhoneLogin } from '@/models'
+import type { UserInfo, UserPhoneLogin, UserPlayList } from '@/models'
 import { http } from '@/utils/http'
 
 /**
@@ -19,8 +19,10 @@ export async function anonymousLogin() {
 /**
  * 获取用户信息
  */
-export function getUserInfo() {
-  return http.get('/user/account')
+export async function getUserInfo() {
+  const { data } = await http.get<{ profile: { userId: number } }>('/user/account')
+  const { userId } = data.profile
+  return http.get<UserInfo>(`/user/detail?uid=${userId}`)
 }
 
 /**
@@ -30,4 +32,16 @@ export function phoneLogin(data: UserPhoneLogin) {
   return http.get<{ token: string }>('/login/cellphone', {
     data,
   })
+}
+
+/**
+ * 获取用户的歌单
+ * @param uid 用户id
+ * @param limit 返回数量，默认为 30
+ * @param offset 偏移数量，用于分页，如:( 页数 -1)*30, 其中 30 为 limit 的值。默认为 0
+ */
+export function getUserPlayList(uid: number, limit = 100, offset = 0) {
+  return http.get<{
+    playlist: UserPlayList[]
+  }>(`/user/playlist?uid=${uid}&limit=${limit}&offset=${offset}`)
 }

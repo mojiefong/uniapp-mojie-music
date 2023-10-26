@@ -119,3 +119,54 @@ export interface UserPhoneLogin {
   phone: string
   password: string
 }
+
+/**
+ * 用户信息
+ */
+export interface UserInfo {
+  /**
+   * 等级
+   */
+  level: number
+
+  profile: {
+    userId: number
+    avatarUrl: string
+    backgroundUrl: string
+    nickname: string
+
+    /**
+     * 粉丝
+     */
+    followeds: number
+
+    /**
+     * 关注
+     */
+    follows: number
+  }
+}
+
+/**
+ * 用户的歌单
+ */
+export interface UserPlayList {
+  id: number
+  name: string
+  coverImgUrl: string
+
+  /**
+   * 是自己创建还是收藏，false 是自己创建，true 是收藏
+   */
+  subscribed: boolean
+
+  /**
+   * 曲目数
+   */
+  trackCount: number
+
+  /**
+   * 播放次数
+   */
+  playCount: number
+}
