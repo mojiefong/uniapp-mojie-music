@@ -55,6 +55,6 @@ async function fetchSongListDetail(id: string) {
 }
 
 function onBack() {
-  uni.switchTab({ url: '/pages/index/index' })
+  uni.navigateBack()
 }
 </script>

@@ -8,6 +8,7 @@
       v-for="item in playList"
       :key="item.id"
       class="flex-v-center box-content mt-2"
+      @click="toSongList(item.id)"
     >
       <image class="w-10 h-10 rd-2 mr-2" :src="`${item.coverImgUrl}?param=60y60`" />
       <view class="flex flex-col">
@@ -29,4 +30,8 @@ defineProps<{
   title: string
   playList: UserPlayList[]
 }>()
+
+function toSongList(id: number) {
+  uni.navigateTo({ url: `/pages/song-list-detail/song-list-detail?id=${id}` })
+}
 </script>
