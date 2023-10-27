@@ -51,6 +51,7 @@ export const usePlayer = defineStore('player', () => {
       const { url } = data.data[0]
       audio.src = url
       audio.play()
+      // playing.value = true 请求时间不同，导致唱针的动画不一致
     } catch (error) {
       uni.showModal({
         title: '提示',
@@ -83,21 +84,26 @@ export const usePlayer = defineStore('player', () => {
    * 上一曲
    */
   async function onPrev() {
+    const _currentIndex = currentIndex.value
+    let index = _currentIndex - 1
+
     switching.value = true
     playing.value = false
 
-    let index = unref(currentIndex) - 1
+    // 切换歌曲后有延迟，还在播放之前的歌曲，所以把时间归零并停止播放
+    currentTime.value = 0
+    audio.stop()
 
     // 判断是否为随机播放
     if (playMode.value === PlayMode.Random) {
       const _randomPlayIndexes = randomPlayIndexes.value
       const length = _randomPlayIndexes.length
-      let randomIndex = (currentIndex.value - 1 + length) % length
+      let randomIndex = (index + length) % length
 
       // 如果上一个索引与当前索引相同
-      if (_randomPlayIndexes[randomIndex] === currentIndex.value) {
+      if (_randomPlayIndexes[randomIndex] === _currentIndex) {
         // 如果相同，将随机索引设置为当前索引，以避免重复播放相同的歌曲
-        randomIndex = currentIndex.value
+        randomIndex = _currentIndex
       }
 
       const prevIndex = _randomPlayIndexes[randomIndex]
@@ -108,7 +114,7 @@ export const usePlayer = defineStore('player', () => {
     const prevIndex = index < 0 ? playList.value.length - 1 : index
     currentIndex.value = prevIndex
     fetchSongUrl()
-    await sleep(300)
+    await sleep(300) // 延迟300毫秒让唱针的动画统一
     playing.value = true
     switching.value = false
   }
@@ -117,19 +123,25 @@ export const usePlayer = defineStore('player', () => {
    * 下一曲
    */
   async function onNext() {
+    const _currentIndex = currentIndex.value
+    let index = _currentIndex + 1
+
     switching.value = true
     playing.value = false
-    let index = unref(currentIndex) + 1
+
+    // 切换歌曲后有延迟，还在播放之前的歌曲，所以把时间归零并停止播放
+    currentTime.value = 0
+    audio.stop()
 
     // 判断是否为随机播放
     if (playMode.value === PlayMode.Random) {
       const _randomPlayIndexes = randomPlayIndexes.value
-      let randomIndex = (currentIndex.value + 1) % _randomPlayIndexes.length
+      let randomIndex = index % _randomPlayIndexes.length
 
       // 如果下一个索引与当前索引相同
-      if (_randomPlayIndexes[randomIndex] === currentIndex.value) {
+      if (_randomPlayIndexes[randomIndex] === _currentIndex) {
         // 如果相同，将随机索引设置为当前索引，以避免重复播放相同的歌曲
-        randomIndex = currentIndex.value
+        randomIndex = _currentIndex
       }
 
       const nextIndex = _randomPlayIndexes[randomIndex]
@@ -140,7 +152,7 @@ export const usePlayer = defineStore('player', () => {
     const nextIndex = index === playList.value.length ? index = 0 : index
     currentIndex.value = nextIndex
     fetchSongUrl()
-    await sleep(300)
+    await sleep(300) // 延迟300毫秒让唱针的动画统一
     playing.value = true
     switching.value = false
   }
