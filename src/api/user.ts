@@ -35,6 +35,14 @@ export function phoneLogin(data: UserPhoneLogin) {
 }
 
 /**
+ * 发送验证码
+ * @param phone 手机号
+ */
+export function sendCaptcha(phone: string) {
+  return http.get(`/captcha/sent?phone=${phone}`)
+}
+
+/**
  * 获取用户的歌单
  * @param uid 用户id
  * @param limit 返回数量，默认为 30

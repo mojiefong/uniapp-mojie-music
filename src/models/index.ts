@@ -117,7 +117,8 @@ export interface HotSearch {
  */
 export interface UserPhoneLogin {
   phone: string
-  password: string
+  password?: string
+  captcha?: string
 }
 
 /**
