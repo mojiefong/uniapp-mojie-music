@@ -64,10 +64,17 @@ export async function getSongDetail(ids: string): Promise<Song[]> {
 
 /**
  * 获取歌曲播放地址
- * @param id
+ * @param id 歌曲id
+ * @param magic 是否开启魔法，默认 false 不开启，true 开启
  */
-export function getSongUrl(id: string | number) {
-  return http.get<{ data: { url: string }[] }>(`/song/url?id=${id}`)
+export function getSongUrl(id: string | number, magic = false) {
+  return http.get<{ data: { url: string }[] }>('/song/url/v1', {
+    data: {
+      id,
+      magic,
+      level: 'lossless',
+    },
+  })
 }
 
 /**
