@@ -28,7 +28,7 @@ export function useLyric() {
 
     const { data } = await getLyric(currentSong.value.id)
     const lyric = (data.lrc.lyric || '').split('\n')
-    const timeReg = /\[(\d{2}:\d{2}\.\d{1,})\]\s*(.*)/g
+    const timeReg = /^\[(\d{2}:\d{2}\.\d{1,})\]\s*(.*)$/
 
     lyric.forEach((item) => {
       const match = timeReg.exec(item)
