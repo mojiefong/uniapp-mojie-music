@@ -65,13 +65,13 @@ export async function getSongDetail(ids: string): Promise<Song[]> {
 /**
  * 获取歌曲播放地址
  * @param id 歌曲id
- * @param magic 是否开启魔法，默认 false 不开启，true 开启
+ * @param source 播放源, 默认：kuwo。可选值：kuwo、kugou、migu
  */
-export function getSongUrl(id: string | number, magic = false) {
+export function getSongUrl(id: string | number, source?: string) {
   return http.get<{ data: { url: string }[] }>('/song/url/v1', {
     data: {
       id,
-      magic,
+      source,
       level: 'lossless',
     },
   })

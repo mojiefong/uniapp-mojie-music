@@ -5,7 +5,7 @@
     @click="visible = false"
   >
     <view
-      class="w-full h-70% absolute left-0 bottom-0 bg-white z-100 transition-300 translate-y-100% p2 flex flex-col"
+      class="w-full h-70% absolute left-0 bottom-0 bg-white z-100 transition-300 translate-y-100% p2 flex flex-col rounded-t-2"
       :class="{ 'translate-y-0!': visible }"
       @click.stop
     >

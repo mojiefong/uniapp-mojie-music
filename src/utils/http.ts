@@ -34,7 +34,7 @@ class Http {
         header: options.header,
         data: options.data,
         success: (res) => {
-          resolve(res as unknown as HttpPromise<T>)
+          res.statusCode === 200 ? resolve(res as unknown as HttpPromise<T>) : reject(res)
         },
         fail: (err) => {
           reject(err)

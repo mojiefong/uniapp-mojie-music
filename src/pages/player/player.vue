@@ -63,11 +63,9 @@
       <view class="w-full text-[#ffffffcc]">
         <!-- 喜欢和评论栏 -->
         <view class="flex justify-around">
-          <text />
           <text class="iconfont text-2xl" :class="likeIcon" @click="toggleLike" />
-          <text />
           <text class="iconfont icon-comment text-2xl" />
-          <text />
+          <text class="iconfont icon-music text-2xl" @click="isSource = true" />
         </view>
 
         <!-- 进度条 -->
@@ -107,6 +105,31 @@
     </view>
 
     <mo-play-list v-model="visible" />
+
+    <view
+      class="bg-opacity-40 bg-black"
+      :class="{ 'pos-full': isSource, 'z-99': isSource }"
+      @click="isSource = false"
+    >
+      <view
+        class="w-full bg-white absolute left-0 bottom-0 z-100 rounded-t-2 transition-300 translate-y-100%"
+        :class="{ 'translate-y-0!': isSource }"
+      >
+        <view class="b-b b-b-solid b-b-primary pb2 p2">
+          选择音源（默认为酷我）
+        </view>
+        <view
+          v-for="(item, index) in sourceList"
+          :key="item.value"
+          class="mx2 py2 b-b b-b-solid b-b-primary text-sm flex-v-center justify-between"
+          :class="{ 'b-0!': index === 2 }"
+          @click="onSource(item.value, index)"
+        >
+          <text>{{ item.name }}</text>
+          <text v-show="activeSource === index" class="iconfont icon-gou text-theme" />
+        </view>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -119,9 +142,16 @@ import { usePlayer } from '@/store/player'
 import { formatTime } from '@/utils/util'
 
 const visible = ref(false)
+const isSource = ref(false)
+const activeSource = ref(0)
+const sourceList = [
+  { name: '酷我', value: 'kuwo' },
+  { name: '酷狗', value: 'kugou' },
+  { name: '咪咕', value: 'migu' },
+]
 
 const playerStore = usePlayer()
-const { togglePlay, onPrev, onNext, changePlayMode } = playerStore
+const { togglePlay, onPrev, onNext, changePlayMode, fetchSongUrl } = playerStore
 const { currentSong, playing, currentTime, modeIcon } = storeToRefs(playerStore)
 const { progress, onChanging, onChange } = useProgress()
 const { likeIcon, toggleLike } = useLike()
@@ -133,6 +163,17 @@ onLoad(() => {
 
 function onBack() {
   uni.navigateBack()
+}
+
+async function onSource(value: string, index: number) {
+  if (activeSource.value === index) return
+  try {
+    await fetchSongUrl(currentSong.value.id, value)
+  } catch (error) {
+    // 如果当前源没有歌曲，那么不进行选中
+    return
+  }
+  activeSource.value = index
 }
 </script>
 

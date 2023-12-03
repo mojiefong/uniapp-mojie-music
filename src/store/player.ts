@@ -43,16 +43,28 @@ export const usePlayer = defineStore('player', () => {
   })
 
   /**
-   * 获取歌曲播放的url地址
+   * 获取歌曲播放地址
+   * @param id 歌曲id
+   * @param source 歌曲来源
    */
-  async function fetchSongUrl() {
+  async function fetchSongUrl(id = currentSong.value.id, source?: string) {
     try {
-      const { data } = await getSongUrl(currentSong.value.id)
+      const { data } = await getSongUrl(id, source)
       const { url } = data.data[0]
       audio.src = url
       audio.play()
       // playing.value = true 请求时间不同，导致唱针的动画不一致
-    } catch (error) {
+    } catch ({ statusCode }: any) {
+      if (statusCode === 404) {
+        uni.showModal({
+          title: '提示',
+          content: `${source}源中没有该歌曲`,
+          showCancel: false,
+        })
+        // 用于player页面
+        return Promise.reject(new Error(`${source}源中没有该歌曲`))
+      }
+
       uni.showModal({
         title: '提示',
         content: '获取播放地址失败',
@@ -207,6 +219,7 @@ export const usePlayer = defineStore('player', () => {
     randomPlayIndexes,
     modeIcon,
     modeText,
+    fetchSongUrl,
     onPlay,
     togglePlay,
     onPrev,
