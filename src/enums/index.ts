@@ -4,7 +4,7 @@
  */
 
 /**
- * 最大历史搜索缓存长度
+ * 最大搜索历史缓存长度
  */
 export const MAX_SEARCH_HISTORY_LENGTH = 10
 
@@ -20,7 +20,7 @@ export enum CacheType {
   /**
    * 搜索历史
    */
-  SearchKey = '__SEARCH_HISTORY__',
+  SearchHistory = '__SEARCH_HISTORY__',
 
   /**
    * 播放模式

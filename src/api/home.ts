@@ -6,10 +6,10 @@
 import type { HotSearch, Song, SongList, SongListDetail, TopList } from '@/models'
 import { http } from '@/utils/http'
 
-function transform(list: any) {
+function transform(list: Song[]) {
   list.forEach((item: any) => {
     item.album = item.al
-    item.singers = item.ar.map((singer: any) => singer.name)
+    item.singers = item.ar.map((singer: Song) => singer.name)
   })
   return list
 }
@@ -101,4 +101,19 @@ export function changeLike(id: string | number, like: boolean) {
  */
 export function getLyric(id: string | number) {
   return http.get<{ lrc: { lyric: string } }>(`/lyric?id=${id}`)
+}
+
+/**
+ * 搜索歌曲列表
+ * @param keywords 关键词
+ * @param limit 返回数量
+ * @param type  搜索类型；默认为 1 即单曲 , 取值意义 : 1: 单曲, 10: 专辑, 100: 歌手, 1000: 歌单, 1002: 用户, 1004: MV, 1006: 歌词, 1009: 电台, 1014: 视频, 1018:综合
+ */
+export async function getSearchList(keywords: string, limit = 100, type = 1) {
+  const { data } = await http.get<{
+    result: {
+      songs: Song[]
+    }
+  }>(`/cloudsearch?keywords=${keywords}&type=${type}&limit=${limit}`)
+  return transform(data.result.songs)
 }

@@ -4,7 +4,8 @@
  */
 
 import type { UserInfo } from '@/models'
-import { getSearchHistory } from '@/utils/storage'
+import { MAX_SEARCH_HISTORY_LENGTH } from '@/enums'
+import { clearSearchHistory, getSearchHistory, setSearchHistory } from '@/utils/storage'
 
 export const useStorage = defineStore('storage', () => {
   const userInfo = ref<UserInfo>()
@@ -14,14 +15,25 @@ export const useStorage = defineStore('storage', () => {
     userInfo.value = profile
   }
 
-  function setSearchHistory(searches: string[]) {
-    searchHistory.value = searches
+  function saveSearchHistory(keywords: string) {
+    const searchHistoryList = searchHistory.value
+    const index = searchHistoryList.findIndex(str => str === keywords)
+    if (index > -1) return
+    searchHistoryList.unshift(keywords)
+    searchHistoryList.length > MAX_SEARCH_HISTORY_LENGTH && searchHistoryList.pop()
+    setSearchHistory(searchHistoryList)
+  }
+
+  function removeSearchHistory() {
+    searchHistory.value = []
+    clearSearchHistory()
   }
 
   return {
     searchHistory,
     userInfo,
     setUserInfo,
-    setSearchHistory,
+    saveSearchHistory,
+    removeSearchHistory,
   }
 })
