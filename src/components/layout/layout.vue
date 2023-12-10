@@ -4,21 +4,21 @@
       <slot />
     </view>
     <view v-if="playList.length" class="mini-player" @click="onClick">
-      <view class="w-10 h-10 rd-50%">
+      <view class="w-8 h-8 rd-50%">
         <image class="wh-full rd-50%" :src="`${currentSong.album?.picUrl}?param=100y100`" />
       </view>
       <view class="mx2 flex-1 overflow-hidden whitespace-nowrap">
         <text class="text-sm whitespace-nowrap">
           {{ currentSong.name }}
         </text>
-        -
+        &nbsp;
         <text class="text-xs text-placeholder whitespace-nowrap">
           {{ currentSong.singers?.join('/') }}
         </text>
       </view>
       <view class="flex-center" @click.stop>
         <text
-          class="iconfont text-3xl mr2"
+          class="iconfont text-2xl mr2"
           :class="playing ? 'icon-pause' : 'icon-play'"
           @click="togglePlay"
         />
