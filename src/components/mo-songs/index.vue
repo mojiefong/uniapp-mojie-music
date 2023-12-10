@@ -1,5 +1,5 @@
 <template>
-  <view class="pt-1">
+  <view>
     <view v-show="allPlay" class="text-sm pb-2">
       <view class="flex-v-center">
         <text class="w-6 h-6 text-white bg-theme flex-center rd-50%">

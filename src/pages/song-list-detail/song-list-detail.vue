@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <layout>
     <view class="w-full h-10 text-sm text-center fixed flex-v-center top-0 left-0 z-12 text-white">
       <text class="iconfont icon-left text-3xl relative z-1" @click="onBack" />
       <view class="pl-8 pr-1 -ml-7.5 text-center flex-1 text-ellipsis-single opacity-0" :style="titleStyle">
@@ -11,10 +11,10 @@
       <image class="w-full h-75" :src="`${detail?.coverImgUrl}?param=300y300`" />
     </view>
 
-    <view class="px-2 pb-10 pt-60">
+    <view class="px-2 pt-60 pb-2">
       <mo-songs v-if="detail" :songs="detail.tracks" :type="SongsType.Index" />
     </view>
-  </view>
+  </layout>
 </template>
 
 <script setup lang="ts">

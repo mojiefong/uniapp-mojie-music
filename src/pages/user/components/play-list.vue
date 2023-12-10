@@ -1,5 +1,5 @@
 <template>
-  <view class="bg-white mt-4 p2 rd-2">
+  <view class="bg-white mt2 p2 rd-2">
     {{ title }}
     <text class="text-xs text-light">
       ({{ playList.length }})

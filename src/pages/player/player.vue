@@ -104,7 +104,7 @@
       </view>
     </view>
 
-    <mo-play-list v-model="visible" />
+    <mo-play-list v-model="visible" @clear-success="onBack" />
 
     <view
       class="bg-opacity-40 bg-black"

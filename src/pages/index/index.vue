@@ -1,41 +1,43 @@
 <template>
-  <view class="px-2 pb-10">
-    <view class="h-7 flex-center text-light rd-7 bg-white" @click="toSearch">
-      <text class="iconfont icon-search text-xl pt-0.5" />
-      <text class="text-sm">
-        搜索歌曲/歌单/歌手
-      </text>
-    </view>
+  <layout>
+    <view class="px-2 pb-2">
+      <view class="h-7 flex-center text-light rd-7 bg-white" @click="toSearch">
+        <text class="iconfont icon-search text-xl pt-0.5" />
+        <text class="text-sm">
+          搜索歌曲/歌单/歌手
+        </text>
+      </view>
 
-    <mo-card title="每日推荐" @more="toRecommendSong">
-      <mo-songs :all-play="false" :slice="3" :songs="recommendSongs" />
-    </mo-card>
+      <mo-card title="每日推荐" @more="toRecommendSong">
+        <mo-songs :all-play="false" :slice="3" :songs="recommendSongs" />
+      </mo-card>
 
-    <mo-card title="推荐歌单" @more="toRecommendSongList">
-      <mo-song-list :song-list="songList" @click="toSongList" />
-    </mo-card>
+      <mo-card title="推荐歌单" @more="toRecommendSongList">
+        <mo-song-list :song-list="songList" @click="toSongList" />
+      </mo-card>
 
-    <mo-card title="排行榜" @more="toTopList">
-      <view class="pt-1">
-        <view
-          v-for="item in topList.slice(0, 4)"
-          :key="item.id"
-          class="song flex-v-center box-content"
-          @click="toSongList(item.id)"
-        >
-          <image class="w-20 h-20 rd-2" :src="`${item.coverImgUrl}?param=100y100`" />
-          <view class="info h-12 flex-1 flex-h-center flex-col ml-2 b-b b-b-solid b-b-primary py-5 box-content">
-            <text class="text-sm">
-              {{ item.name }}
-            </text>
-            <text v-for="(song, index) in item.tracks" :key="index" class="text-xs text-light">
-              {{ index + 1 }} {{ song.first }} - {{ song.second }}
-            </text>
+      <mo-card title="排行榜" @more="toTopList">
+        <view class="pt-1">
+          <view
+            v-for="item in topList.slice(0, 4)"
+            :key="item.id"
+            class="song flex-v-center box-content"
+            @click="toSongList(item.id)"
+          >
+            <image class="w-20 h-20 rd-2" :src="`${item.coverImgUrl}?param=100y100`" />
+            <view class="info h-12 flex-1 flex-h-center flex-col ml-2 b-b b-b-solid b-b-primary py-5 box-content">
+              <text class="text-sm">
+                {{ item.name }}
+              </text>
+              <text v-for="(song, index) in item.tracks" :key="index" class="text-xs text-light">
+                {{ index + 1 }} {{ song.first }} - {{ song.second }}
+              </text>
+            </view>
           </view>
         </view>
-      </view>
-    </mo-card>
-  </view>
+      </mo-card>
+    </view>
+  </layout>
 </template>
 
 <script setup lang="ts">

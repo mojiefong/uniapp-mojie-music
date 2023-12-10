@@ -1,32 +1,34 @@
 <template>
-  <view class="mx-2 mb-4">
-    <view class="-mx-2 h-30 overflow-hidden">
-      <image v-if="userInfo" class="wh-full h-60" :src="`${userInfo?.profile.backgroundUrl}?param=400y400`" />
-    </view>
-
-    <view
-      class="bg-white -mt-4 rd-2 flex flex-col items-center pb2 relative z-1"
-      @click="onLogin"
-    >
-      <image v-if="userInfo" class="w-14 h-14 rd-50% -mt-7" :src="`${userInfo?.profile.avatarUrl}?param=60y60`" />
-      <text v-else class="iconfont icon-netease-cloud-music-fill text-14 text-theme -mt-7" />
-      <text class="pt2">
-        {{ userInfo?.profile.nickname || '点击登录' }}
-      </text>
-      <view v-if="userInfo" class="text-light text-sm pt2">
-        <text class="mr-2">
-          {{ userInfo?.profile.follows }} 关注
-        </text>
-        <text class="mr-2">
-          {{ userInfo?.profile.followeds }} 粉丝
-        </text>
-        <text>Lv.{{ userInfo?.level }}</text>
+  <layout>
+    <view class="px-2 pb-2">
+      <view class="-mx-2 h-30 overflow-hidden">
+        <image v-if="userInfo" class="wh-full h-60" :src="`${userInfo?.profile.backgroundUrl}?param=400y400`" />
       </view>
-    </view>
 
-    <PlayList v-if="userInfo" title="创建的歌单" :play-list="createdPlayList" />
-    <PlayList v-if="userInfo" title="收藏的歌单" :play-list="collectPlayList" />
-  </view>
+      <view
+        class="bg-white -mt-4 rd-2 flex flex-col items-center pb2 relative z-1"
+        @click="onLogin"
+      >
+        <image v-if="userInfo" class="w-14 h-14 rd-50% -mt-7" :src="`${userInfo?.profile.avatarUrl}?param=60y60`" />
+        <text v-else class="iconfont icon-netease-cloud-music-fill text-14 text-theme -mt-7" />
+        <text class="pt2">
+          {{ userInfo?.profile.nickname || '点击登录' }}
+        </text>
+        <view v-if="userInfo" class="text-light text-sm pt2">
+          <text class="mr-2">
+            {{ userInfo?.profile.follows }} 关注
+          </text>
+          <text class="mr-2">
+            {{ userInfo?.profile.followeds }} 粉丝
+          </text>
+          <text>Lv.{{ userInfo?.level }}</text>
+        </view>
+      </view>
+
+      <PlayList v-if="userInfo" title="创建的歌单" :play-list="createdPlayList" />
+      <PlayList v-if="userInfo" title="收藏的歌单" :play-list="collectPlayList" />
+    </view>
+  </layout>
 </template>
 
 <script setup lang="ts">

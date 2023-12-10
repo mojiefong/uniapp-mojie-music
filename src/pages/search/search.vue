@@ -1,60 +1,62 @@
 <template>
-  <view class="px-2 pb-4">
-    <view class="h-8 fixed left-2 right-2 bg-bg-primary">
-      <view class="bg-white rd-8 flex-v-center text-light">
-        <text class="iconfont icon-search text-xl pt-0.5" />
-        <view class="flex-1 px-1">
-          <input v-model="keywords" class="text-sm" placeholder="搜索歌曲/歌手" focus>
+  <layout>
+    <view class="px2 pb2">
+      <view class="h-8 fixed left-2 right-2 bg-bg-primary">
+        <view class="bg-white rd-8 flex-v-center text-light">
+          <text class="iconfont icon-search text-xl pt-0.5" />
+          <view class="flex-1 px-1">
+            <input v-model="keywords" class="text-sm" placeholder="搜索歌曲/歌手" focus>
+          </view>
+          <text v-show="keywords" class="iconfont icon-close text-xl pt-0.5" @click="onClear" />
         </view>
-        <text v-show="keywords" class="iconfont icon-close text-xl pt-0.5" @click="onClear" />
       </view>
-    </view>
 
-    <view v-show="!searchList.length" class="pt-8">
-      <view v-show="searchHistory.length" class="py-2">
-        <view class="pb-2 flex-v-center justify-between">
-          <text>搜索历史</text>
-          <text class="iconfont icon-delete" @click="onDelete" />
+      <view v-show="!searchList.length" class="pt-8">
+        <view v-show="searchHistory.length" class="py-2">
+          <view class="pb-2 flex-v-center justify-between">
+            <text>搜索历史</text>
+            <text class="iconfont icon-delete" @click="onDelete" />
+          </view>
+          <text
+            v-for="item in searchHistory"
+            :key="item"
+            class="text-xs bg-placeholder px-3 py-1 rd-3 mr-2 mb-2 inline-block"
+            @click="keywords = item"
+          >
+            {{ item }}
+          </text>
         </view>
-        <text
-          v-for="item in searchHistory"
-          :key="item"
-          class="text-xs bg-placeholder px-3 py-1 rd-3 mr-2 mb-2 inline-block"
-          @click="keywords = item"
+
+        <view class="py-2">
+          <view class="pb-2">
+            热门搜索
+          </view>
+          <text
+            v-for="hot in hotSearches"
+            :key="hot.first"
+            class="text-xs bg-placeholder px-3 py-1 rd-3 mr-2 mb-2 inline-block"
+            @click="keywords = hot.first"
+          >
+            {{ hot.first }}
+          </text>
+        </view>
+      </view>
+
+      <view v-show="searchList.length" class="pt-8">
+        <view
+          v-for="(song, index) in searchList"
+          :key="song.id"
+          class="text-sm text-secondary leading-6 flex-v-center"
+          @click="toPlay(index)"
         >
-          {{ item }}
-        </text>
-      </view>
-
-      <view class="py-2">
-        <view class="pb-2">
-          热门搜索
+          <text class="iconfont icon-music mr-1" />
+          <text>
+            {{ song.name }}
+          </text>
         </view>
-        <text
-          v-for="hot in hotSearches"
-          :key="hot.first"
-          class="text-xs bg-placeholder px-3 py-1 rd-3 mr-2 mb-2 inline-block"
-          @click="keywords = hot.first"
-        >
-          {{ hot.first }}
-        </text>
       </view>
     </view>
-
-    <view v-show="searchList.length" class="pt-8">
-      <view
-        v-for="(song, index) in searchList"
-        :key="song.id"
-        class="text-sm text-secondary leading-6 flex-v-center"
-        @click="toPlay(index)"
-      >
-        <text class="iconfont icon-music mr-1" />
-        <text>
-          {{ song.name }}
-        </text>
-      </view>
-    </view>
-  </view>
+  </layout>
 </template>
 
 <script setup lang="ts">

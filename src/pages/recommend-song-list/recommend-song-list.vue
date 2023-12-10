@@ -1,7 +1,9 @@
 <template>
-  <view class="px-2 pb-4">
-    <mo-song-list :song-list="songList" />
-  </view>
+  <layout>
+    <view class="px2 pb2">
+      <mo-song-list :song-list="songList" />
+    </view>
+  </layout>
 </template>
 
 <script setup lang="ts">
