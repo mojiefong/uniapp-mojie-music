@@ -58,41 +58,43 @@ const crypto = require('crypto')
 const match = require('@unblockneteasemusic/server')
 
 module.exports = async (query, request) => {
-  query.cookie.os = 'android'
-  query.cookie.appver = '8.10.05'
+  query.cookie.os = 'android'
+  query.cookie.appver = '8.10.05'
 
-  const data = {
-    ids: '[' + query.id + ']',
-    level: query.level,
-    encodeType: 'flac',
-  }
+  const data = {
+    ids: '[' + query.id + ']',
+    level: query.level,
+    encodeType: 'flac',
+  }
 
-  if (data.level == 'sky') {
-    data.immerseType = 'c51'
-  }
+  if (data.level == 'sky') {
+    data.immerseType = 'c51'
+  }
 
-  const res = await request(
-    'POST',
-  `https://interface.music.163.com/eapi/song/enhance/player/url/v1`,
-    data,
-    {
-      crypto: 'eapi',
-      cookie: query.cookie,
-      proxy: query.proxy,
-      realIP: query.realIP,
-      url: '/api/song/enhance/player/url/v1',
-    },
-  )
+  const res = await request(
+    'POST',
+    `https://interface.music.163.com/eapi/song/enhance/player/url/v1`,
+    data,
+    {
+      crypto: 'eapi',
+      cookie: query.cookie,
+      proxy: query.proxy,
+      realIP: query.realIP,
+      url: '/api/song/enhance/player/url/v1',
+    },
+  )
 
-  const result = res.body.data
-  const song = result[0]
+  const result = res.body.data
+  const song = result[0]
 
-  // 把url地址为空的、VIP可听/所在专辑需单独付费，就添加魔法
-  // https://github.com/Binaryify/NeteaseCloudMusicApi/issues/899#issuecomment-680002883
-  if (!song.url || [1, 4].includes(song.fee)) {
-    const source = query.source || 'kuwo'
-    const { url } = await match(query.id, [source]) // 这里只设置一个源，避免多个产生随机选择问题
-    song.url = url
-  }
+  // 把url地址为空的、VIP可听/所在专辑需单独付费，就添加魔法
+  // https://github.com/Binaryify/NeteaseCloudMusicApi/issues/899#issuecomment-680002883
+  if (!song.url || [1, 4].includes(song.fee)) {
+    const source = query.source || 'kuwo'
+    const { url } = await match(query.id, [source]) // 这里只设置一个源，避免多个产生随机选择问题
+    song.url = url
+  }
+
+  return res
 }
 ```
