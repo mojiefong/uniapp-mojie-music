@@ -64,7 +64,7 @@ function setupAudio() {
 </script>
 
 <style>
-@import "//at.alicdn.com/t/c/font_4158018_wbz1zx2ec49.css";
+@import "./static/iconfont/iconfont.css";
 
 page, html, body {
   /* #ec5241 #f4606c */

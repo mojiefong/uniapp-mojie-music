@@ -21,13 +21,15 @@
       <view v-show="!isLyric" class="fade-in w-70 relative flex-1 pt-30">
         <view
           class="w-18.5 h-30 absolute left-49% top-15 z-20
-          bg-[url(~@/static/stylus.png)] bg-cover bg-no-repeat
-          rotate-0 origin-[12px_12px] transition-transform duration-0.3s"
+          bg-cover bg-no-repeat rotate-0 origin-[12px_12px]
+          transition-transform duration-0.3s"
           :class="{ '-rotate-30!': !playing }"
+          style="background-image: url('../../static/stylus.png')"
         />
         <view
-          class="w-full h-70 bg-[url(~@/static/circle.png)] bg-cover bg-no-repeat relative rotate-start"
+          class="w-full h-70 bg-cover bg-no-repeat relative rotate-start"
           :class="{ 'rotate-paused': !playing }"
+          style="background-image: url('../../static/circle.png')"
           @click="isLyric = true"
         >
           <image class="w-64% h-64% rd-50% pos-center" :src="`${currentSong.album?.picUrl}?param=200y200`" />
