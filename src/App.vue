@@ -36,6 +36,10 @@ async function defaultLogin() {
  * 监听audio事件
  */
 function setupAudio() {
+  audio.onCanplay(() => {
+    audio.play()
+  })
+
   audio.onPlay(() => {
     if (switching.value) return
 

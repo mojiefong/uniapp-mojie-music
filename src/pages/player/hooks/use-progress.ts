@@ -28,7 +28,6 @@ export function useProgress() {
 
   /**
    * 正在拖动进度条
-   * @param e
    */
   function onChanging(e: any) {
     progressDragging.value = true
@@ -37,12 +36,19 @@ export function useProgress() {
 
   /**
    * 结束拖动进度条
-   * @param e
    */
   function onChange(e: any) {
     progressDragging.value = false
     setCurrentTime(e.detail.value)
-    audio.currentTime = currentTime.value
+    // audio.currentTime = currentTime.value
+
+    // 微信小程序 bug
+    // https://developers.weixin.qq.com/community/develop/doc/00024ab2c7844056004a8cc9056400
+    audio.pause()
+    audio.seek(currentTime.value)
+    ;(audio as any).onSeeked(() => {
+      audio.play()
+    })
   }
 
   return {

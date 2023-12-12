@@ -11,7 +11,7 @@ import { getPlayMode, setPlayMode } from '@/utils/storage'
 import { getRandomIndexes } from '@/utils/util'
 
 export const usePlayer = defineStore('player', () => {
-  const audio = uni.getBackgroundAudioManager?.() || uni.createInnerAudioContext()
+  const audio = markRaw(uni.getBackgroundAudioManager?.() || uni.createInnerAudioContext())
   const playList = ref<Song[]>([]) // 当前播放列表
   const playing = ref(false) // 是否正在播放
   const currentIndex = ref(0) // 当前播放的索引
@@ -52,7 +52,7 @@ export const usePlayer = defineStore('player', () => {
       const { data } = await getSongUrl(id, source)
       const { url } = data.data[0]
       audio.src = url
-      audio.play()
+      // audio.play()
       // playing.value = true 请求时间不同，导致唱针的动画不一致
     } catch ({ statusCode }: any) {
       if (statusCode === 404) {
