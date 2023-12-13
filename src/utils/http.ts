@@ -21,7 +21,17 @@ uni.addInterceptor('request', {
     //   ...args.data,
     // }
     args.data = Object.assign({ cookie: decodeURIComponent(`MUSIC_U=${getCookie()}`) }, args.data)
+
+    // #ifdef H5
+    const { baseUrl } = document.documentElement.dataset
+    if (baseUrl !== 'undefined') {
+      args.url = `//${baseUrl}${args.url}`
+    }
+    // #endif
+
+    // #ifndef H5
     args.url = import.meta.env.VITE_BASE_URL + args.url
+    // #endif
   },
 })
 
