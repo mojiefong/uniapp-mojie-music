@@ -61,6 +61,7 @@
 
 <script setup lang="ts">
 import { debounce } from '@mojiee/utils'
+import { onLoad } from '@dcloudio/uni-app'
 import type { HotSearch, Song } from '@/models'
 import { getHotSearches, getSearchList } from '@/api/home'
 import { useStorage } from '@/store/storage'
@@ -74,7 +75,7 @@ const storageStore = useStorage()
 const { searchHistory } = storeToRefs(storageStore)
 const { onPlay } = usePlayer()
 
-onMounted(fetchHotSearches)
+onLoad(fetchHotSearches)
 
 watch(keywords, debounce(300, fetchSearchList))
 

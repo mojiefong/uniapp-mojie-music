@@ -1,6 +1,6 @@
 <template>
   <view class="rd-2 bg-white mt-2 p-2">
-    <view class="flex-v-center h-6">
+    <view class="flex-v-center h-6 pb2">
       <text class="line-height-4 flex-1">
         {{ title }}
       </text>

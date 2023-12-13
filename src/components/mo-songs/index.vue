@@ -1,43 +1,41 @@
 <template>
-  <view>
-    <view v-show="allPlay" class="text-sm py2">
-      <view class="flex-v-center">
-        <text class="w-6 h-6 text-white bg-theme flex-center rd-50%">
-          <text class="iconfont icon-play text-xs" />
-        </text>
-        <text class="pl-2 pr-1">
-          播放全部
-        </text>
-        <text class="text-[18rpx] text-light">
-          ({{ songs.length }})
-        </text>
-      </view>
-    </view>
-
-    <view
-      v-for="(song, index) in songList" :key="song.id"
-      class="song flex-v-center box-content"
-      @click="onClick(song, index)"
-    >
-      <text
-        v-if="type === SongsType.Index"
-        class="w-4 text-center mr-1 text-light text-sm"
-        :class="{ 'text-xs': index.toString().length > 2 }"
-      >
-        {{ index + 1 }}
+  <view v-show="allPlay" class="text-sm py2">
+    <view class="flex-v-center">
+      <text class="w-6 h-6 text-white bg-theme flex-center rd-50%">
+        <text class="iconfont icon-play text-xs" />
       </text>
-      <image v-if="type === SongsType.Image" class="w-10 h-10 rd-2" :src="`${song.album.picUrl}?param=60y60`" />
-      <view
-        class="info flex-1 flex-h-center flex-col ml-2 b-b b-b-solid b-b-primary py-1 box-content"
-        :class="{ 'h-10': type !== SongsType.Index }"
-      >
-        <text class="text-sm">
-          {{ song.name }}
-        </text>
-        <text class="text-[20rpx] text-light">
-          {{ song.singers.join('/') }} - {{ song.album.name }}
-        </text>
-      </view>
+      <text class="pl-2 pr-1">
+        播放全部
+      </text>
+      <text class="text-[18rpx] text-light">
+        ({{ songs.length }})
+      </text>
+    </view>
+  </view>
+
+  <view
+    v-for="(song, index) in songList" :key="song.id"
+    class="song flex-v-center pb2 last:pb0"
+    @click="onClick(song, index)"
+  >
+    <text
+      v-if="type === SongsType.Index"
+      class="w-4 text-center mr-1 text-light text-sm"
+      :class="{ 'text-xs': index.toString().length > 2 }"
+    >
+      {{ index + 1 }}
+    </text>
+    <image v-if="type === SongsType.Image" class="w-10 h-10 rd-2" :src="`${song.album.picUrl}?param=60y60`" />
+    <view
+      class="info flex-1 flex-h-center flex-col ml-2 overflow-hidden"
+      :class="{ 'h-10': type !== SongsType.Index }"
+    >
+      <text class="text-sm">
+        {{ song.name }}
+      </text>
+      <text class="text-[20rpx] text-light truncate">
+        {{ song.singers.join('/') }} - {{ song.album.name }}
+      </text>
     </view>
   </view>
 </template>

@@ -4,7 +4,7 @@
       <view class="grid grid-cols-3 gap-2">
         <view v-for="item in topList" :key="item.id" @click="toSongList(item.id)">
           <image class="w-full h-29vw rd-2" :src="`${item.coverImgUrl}?param=200y200`" />
-          <text class="text-xs">
+          <text class="name">
             {{ item.name }}
           </text>
         </view>
@@ -55,3 +55,14 @@ function toSongList(id: number) {
   uni.navigateTo({ url: `/pages/song-list-detail/song-list-detail?id=${id}` })
 }
 </script>
+
+<style scoped>
+.name {
+  font-size: 24rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+}
+</style>

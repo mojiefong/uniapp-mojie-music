@@ -7,7 +7,7 @@
       </view>
 
       <!-- 头部 -->
-      <view class="w-full text-sm text-white">
+      <view class="w-full text-sm text-white mt-[var(--status-bar-height)]">
         <text class="iconfont icon-left text-3xl absolute left-2" @click="onBack" />
         <view class="w-80% line-height-9 my0 mxa text-center text-ellipsis-single">
           {{ currentSong.name }}
@@ -23,7 +23,7 @@
           class="w-18.5 h-30 absolute left-49% top-15 z-20
           bg-cover bg-no-repeat rotate-0 origin-[12px_12px]
           transition-transform duration-0.3s"
-          :class="{ '-rotate-30!': !playing }"
+          :class="{ '!-rotate-30': !playing }"
           style="background-image: url('../../static/stylus.png')"
         />
         <view
@@ -161,6 +161,10 @@ const { isLyric, lyricList, currentLyricIndex, scrollTop } = useLyric()
 
 onLoad(() => {
   if (!currentSong.value.id) uni.switchTab({ url: '/pages/index/index' })
+  uni.setNavigationBarColor({
+    frontColor: '#ffffff',
+    backgroundColor: '#ffffff',
+  })
 })
 
 function onBack() {

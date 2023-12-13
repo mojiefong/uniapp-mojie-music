@@ -68,12 +68,12 @@ export async function getSongDetail(ids: string): Promise<Song[]> {
  * @param source 播放源, 默认：kuwo。可选值：kuwo、kugou、migu
  */
 export function getSongUrl(id: string | number, source?: string) {
+  const data: any = { id, level: 'lossless' }
+  if (source) {
+    data.source = source
+  }
   return http.get<{ data: { url: string }[] }>('/song/url/v1', {
-    data: {
-      id,
-      source,
-      level: 'lossless',
-    },
+    data,
   })
 }
 

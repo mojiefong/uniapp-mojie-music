@@ -79,7 +79,7 @@ async function onSubmit() {
 
   setCookie(data.token)
   uni.switchTab({
-    url: '/',
+    url: '/pages/index/index',
   })
 }
 

@@ -22,7 +22,7 @@ const emit = defineEmits<{
 
 <style scoped>
 .name {
-  font-size: 22rpx;
+  font-size: 24rpx;
   padding-top: 16rpx;
   display: -webkit-box;
   -webkit-box-orient: vertical;

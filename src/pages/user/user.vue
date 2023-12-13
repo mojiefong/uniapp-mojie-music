@@ -1,12 +1,12 @@
 <template>
   <layout>
-    <view class="px-2 pb-2">
+    <view class="wh-full fixed top-0 left-0 z-10 ">
       <view class="-mx-2 h-30 overflow-hidden">
         <image v-if="userInfo" class="wh-full h-60" :src="`${userInfo?.profile.backgroundUrl}?param=400y400`" />
       </view>
 
       <view
-        class="bg-white -mt-4 rd-2 flex flex-col items-center pb2 relative z-1"
+        class="bg-white -mt-4 rd-2 flex flex-col items-center mx2 pb2 relative z-1 shadow-sm"
         @click="onLogin"
       >
         <image v-if="userInfo" class="w-14 h-14 rd-50% -mt-7" :src="`${userInfo?.profile.avatarUrl}?param=60y60`" />
@@ -24,7 +24,9 @@
           <text>Lv.{{ userInfo?.level }}</text>
         </view>
       </view>
+    </view>
 
+    <view class="pt-50 pb2 px2">
       <PlayList v-if="userInfo" title="创建的歌单" :play-list="createdPlayList" />
       <PlayList v-if="userInfo" title="收藏的歌单" :play-list="collectPlayList" />
     </view>
@@ -38,7 +40,14 @@ import type { UserPlayList } from '@/models'
 import { getUserInfo, getUserPlayList } from '@/api/user'
 import { useStorage } from '@/store/storage'
 
-onLoad(fetchAll)
+onLoad(() => {
+  uni.setNavigationBarColor({
+    frontColor: '#ffffff',
+    backgroundColor: '#ffffff',
+  })
+
+  fetchAll()
+})
 
 const createdPlayList = ref<UserPlayList[]>([])
 const collectPlayList = ref<UserPlayList[]>([])

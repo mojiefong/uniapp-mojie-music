@@ -1,6 +1,6 @@
 <template>
   <view>
-    <view :class="{ 'pb-[var(--tab-bar-height)]': playList.length }">
+    <view :class="{ 'pb-50px': playList.length }">
       <slot />
     </view>
     <view v-if="playList.length" class="mini-player" @click="onClick">
@@ -46,8 +46,7 @@ function onClick() {
 
 <style scoped>
 .mini-player{
-  @apply w-full fixed left-0 z-998 flex-v-center text-base;
-  height: var(--tab-bar-height);
+  @apply w-full h-50px fixed left-0 z-998 flex-v-center text-base;
   bottom: var(--window-bottom);
   background-color: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(20px);

@@ -11,7 +11,7 @@ import { getPlayMode, setPlayMode } from '@/utils/storage'
 import { getRandomIndexes } from '@/utils/util'
 
 export const usePlayer = defineStore('player', () => {
-  const audio = markRaw(uni.getBackgroundAudioManager?.() || uni.createInnerAudioContext())
+  const audio = uni.getBackgroundAudioManager?.() || uni.createInnerAudioContext()
   const playList = ref<Song[]>([]) // 当前播放列表
   const playing = ref(false) // 是否正在播放
   const currentIndex = ref(0) // 当前播放的索引
@@ -51,8 +51,7 @@ export const usePlayer = defineStore('player', () => {
     try {
       const { data } = await getSongUrl(id, source)
       const { url } = data.data[0]
-      audio.src = url
-      // audio.play()
+      setAudioInfo(url)
       // playing.value = true 请求时间不同，导致唱针的动画不一致
     } catch ({ statusCode }: any) {
       if (statusCode === 404) {
@@ -71,6 +70,21 @@ export const usePlayer = defineStore('player', () => {
         showCancel: false,
       })
     }
+  }
+
+  /**
+   * 设置歌曲信息
+   * @param url 歌曲地址
+   */
+  function setAudioInfo(url: string) {
+    const audioVal = audio as any
+    const currentSongVal = currentSong.value
+
+    audioVal.title = currentSongVal.name
+    audioVal.singer = currentSongVal.singers.join('/')
+    audioVal.epname = currentSongVal.album.name
+    audioVal.coverImgUrl = currentSongVal.album.picUrl
+    audioVal.src = url
   }
 
   /**
@@ -173,7 +187,8 @@ export const usePlayer = defineStore('player', () => {
    * 循环播放
    */
   function onLoopPlay() {
-    currentTime.value = 0
+    // currentTime.value = 0
+    audio.seek(0)
     audio.play()
   }
 
