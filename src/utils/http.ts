@@ -24,7 +24,7 @@ uni.addInterceptor('request', {
 
     // #ifdef H5
     const { baseUrl } = document.documentElement.dataset
-    if (baseUrl !== 'undefined') {
+    if (baseUrl) {
       args.url = `//${baseUrl}${args.url}`
     }
     // #endif

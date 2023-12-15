@@ -1,0 +1,4 @@
+.git
+.npmrc
+node_modules
+dist
