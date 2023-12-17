@@ -4,11 +4,11 @@
       <text class="line-height-4 flex-1">
         {{ title }}
       </text>
-      <view class="flex-h-center text-light">
+      <view class="flex-v-center text-light">
         <text class="text-xs" @click="emits('more')">
           更多
         </text>
-        <text class="iconfont icon-right pt1px" />
+        <text class="iconfont icon-right -mt-1px" />
       </view>
     </view>
 
