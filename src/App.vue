@@ -30,6 +30,13 @@ async function defaultLogin() {
   if (getCookie()) return
   const cookie = await anonymousLogin()
   setCookie(cookie)
+
+  // 未登录状态下，游客登录请求过慢，导致其它需要登录的接口优先返回，导致页面无数据
+  // 所以当游客登录后，再重新加载页面
+  // 暂时没有找到更合适的方案，此方案会导致首次加载页面闪烁的问题
+  uni.reLaunch({
+    url: '/pages/index/index',
+  })
 }
 
 /**

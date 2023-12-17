@@ -34,6 +34,7 @@
         </button>
         <button
           :disabled="isDisabled"
+          :loading="isLoading"
           class="bg-theme!"
           type="primary"
           form-type="submit"
@@ -52,6 +53,7 @@ import { phoneLogin, sendCaptcha } from '@/api/user'
 import { useCountdown } from '@/hooks/use-countdown'
 
 const isCaptcha = ref(false)
+const isLoading = ref(false)
 const formData = reactive<UserPhoneLogin>({
   phone: '',
   password: '',
@@ -67,20 +69,25 @@ const loginModeText = computed(() => isCaptcha.value ? '密码登录' : '验证�
 const { countingDown, countdownText, startCountdown } = useCountdown()
 
 async function onSubmit() {
-  const params = { ...formData }
-  isCaptcha.value ? delete params.password : delete params.captcha
-  const { data } = await phoneLogin(params)
-  if (data.code !== 200) {
-    return uni.showToast({
-      title: data.message,
-      icon: 'none',
-    })
-  }
+  try {
+    const params = { ...formData }
+    isLoading.value = true
+    isCaptcha.value ? delete params.password : delete params.captcha
+    const { data } = await phoneLogin(params)
+    if (data.code !== 200) {
+      return uni.showToast({
+        title: data.message,
+        icon: 'none',
+      })
+    }
 
-  setCookie(data.token)
-  uni.switchTab({
-    url: '/pages/index/index',
-  })
+    setCookie(data.token)
+    uni.switchTab({
+      url: '/pages/index/index',
+    })
+  } finally {
+    isLoading.value = false
+  }
 }
 
 async function onSendCaptcha(send: boolean) {

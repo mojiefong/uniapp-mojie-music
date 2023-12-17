@@ -21,6 +21,7 @@ export async function anonymousLogin() {
  */
 export async function getUserInfo() {
   const { data } = await http.get<{ profile: { userId: number } }>('/user/account')
+  if (!data.profile) return { data: null }
   const { userId } = data.profile
   return http.get<UserInfo>(`/user/detail?uid=${userId}`)
 }
@@ -53,3 +54,8 @@ export function getUserPlayList(uid: number, limit = 100, offset = 0) {
     playlist: UserPlayList[]
   }>(`/user/playlist?uid=${uid}&limit=${limit}&offset=${offset}`)
 }
+
+/**
+ * 退出登录
+ */
+export const logout = () => http.get('/logout')
