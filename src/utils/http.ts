@@ -16,6 +16,8 @@ type HttpPromise<T = any> = Promise<Response<T>>
 
 uni.addInterceptor('request', {
   invoke(args) {
+    const url = import.meta.env.VITE_BASE_URL + args.url
+
     // args.data = {
     //   auth: 11,
     //   ...args.data,
@@ -26,11 +28,13 @@ uni.addInterceptor('request', {
     const { baseUrl } = document.documentElement.dataset
     if (baseUrl) {
       args.url = `//${baseUrl}${args.url}`
+    } else {
+      args.url = url
     }
     // #endif
 
     // #ifndef H5
-    args.url = import.meta.env.VITE_BASE_URL + args.url
+    args.url = url
     // #endif
   },
 })

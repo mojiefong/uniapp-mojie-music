@@ -85,6 +85,7 @@ export const usePlayer = defineStore('player', () => {
     audioVal.epname = currentSongVal.album.name
     audioVal.coverImgUrl = currentSongVal.album.picUrl
     audioVal.src = url
+    audioVal.play()
   }
 
   /**
