@@ -15,6 +15,12 @@
       }
     },
     {
+      "path": "pages/user/setting",
+      "style": {
+        "navigationBarTitleText": "设置"
+      }
+    },
+    {
       "path": "pages/recommend-songs/recommend-songs",
       "style": {
         "navigationBarTitleText": "每日推荐"

@@ -8,7 +8,7 @@ import { MAX_SEARCH_HISTORY_LENGTH } from '@/enums'
 import { clearSearchHistory, getSearchHistory, setSearchHistory } from '@/utils/storage'
 
 export const useStorage = defineStore('storage', () => {
-  const userInfo = ref<UserInfo>()
+  const userInfo = ref<UserInfo | null>(null)
   const searchHistory = ref(getSearchHistory())
 
   function setUserInfo(profile: UserInfo) {

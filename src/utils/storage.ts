@@ -22,6 +22,13 @@ export function setCookie(cookie: string) {
 }
 
 /**
+ * 清除cookie信息
+ */
+export function clearCookie() {
+  uni.removeStorageSync(CacheType.AuthKey)
+}
+
+/**
  * 获取播放模式
  */
 export function getPlayMode() {
