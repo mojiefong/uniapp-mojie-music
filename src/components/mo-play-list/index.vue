@@ -8,10 +8,6 @@
   <view
     class="w-full h-70% fixed left-0 bottom-0 bg-white z-999 transition-300 translate-y-100% p2 flex flex-col rounded-t-2"
     :class="{ 'translate-y-0!': visible }"
-  />
-  <view
-    class="w-full h-70% fixed left-0 bottom-0 bg-white z-999 transition-300 translate-y-100% p2 flex flex-col rounded-t-2"
-    :class="{ 'translate-y-0!': visible }"
   >
     <view class="flex-v-center text-sm justify-between">
       <view class="flex-v-center" @click="changePlayMode">
