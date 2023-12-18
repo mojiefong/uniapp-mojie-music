@@ -98,3 +98,6 @@ module.exports = async (query, request) => {
   return res
 }
 ```
+## License
+
+[MIT](https://github.com/mojiefong/uniapp-mojie-music/blob/master/LICENSE)
