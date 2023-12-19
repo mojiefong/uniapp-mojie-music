@@ -17,14 +17,12 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Bump version and push tag
-        id: tag_version
-        uses: mathieudutour/github-tag-action@v6.1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: mojiee/uniapp-mojie-music:${{ steps.tag_version.outputs.new_tag }}
+          tags: mojiee/uniapp-mojie-music:${{ steps.get_version.outputs.VERSION }}
