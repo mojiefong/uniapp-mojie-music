@@ -98,6 +98,28 @@ module.exports = async (query, request) => {
   return res
 }
 ```
+
+## 安装运行
+
+### 环境要求
+
+建议 NodeJS 16+ 版本
+
+### 运行
+
+```shell
+git clone https://github.com/mojiefong/uniapp-mojie-music.git
+cd uniapp-mojie-music
+
+# 建议使用 pnpm
+pnpm i
+
+# 本地运行 H5
+npm run dev:h5
+```
+
+微信小程序需要替换成自己 `appid`，修改 `manifest.json` 文件下 `mp-weixin.appid`
+
 ## License
 
 [MIT](https://github.com/mojiefong/uniapp-mojie-music/blob/master/LICENSE)
