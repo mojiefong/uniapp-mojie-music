@@ -1,6 +1,6 @@
 {
   "name": "uniapp-mojie-music",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "scripts": {
     "dev:app": "uni -p app",
     "dev:app-android": "uni -p app-android",
