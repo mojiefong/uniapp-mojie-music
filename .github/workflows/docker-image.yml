@@ -20,12 +20,12 @@ jobs:
           sudo docker build -t mojiee/uniapp-mojie-music:${GITHUB_REF:10} .
           sudo docker push mojiee/uniapp-mojie-music:${GITHUB_REF:10}
 
-      - name: Create a Release
+      - name: Github Release
         uses: elgohr/Github-Release-Action@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          title: MyReleaseMessage
+          title: ${{ github.sha }}
 
 # name: Docker Image CI
 
