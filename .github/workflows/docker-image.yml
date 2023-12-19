@@ -21,11 +21,9 @@ jobs:
           sudo docker push mojiee/uniapp-mojie-music:${GITHUB_REF:10}
 
       - name: Github Release
-        uses: elgohr/Github-Release-Action@v5
+        run: npx conventional-github-releaser -p angular
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          title: ${{ GITHUB_REF:10 }}
+          CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 # name: Docker Image CI
 
