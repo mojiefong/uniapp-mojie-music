@@ -32,8 +32,3 @@ jobs:
         with:
           push: true
           tags: mojiee/uniapp-mojie-music:${{ steps.get_version.outputs.VERSION }}
-          cache-from: type=gha,scope=blockcluster
-          cache-to: type=gha,scope=blockcluster,mode=max
-          build-args: |
-            git_sha=${{github.sha}}
-            git_ref=${{github.ref}}
