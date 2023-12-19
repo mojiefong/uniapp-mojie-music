@@ -21,4 +21,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: mojiee/uniapp-mojie-music:${{ github.ref }}
+          tags: mojiee/uniapp-mojie-music:${{ github_ref/refs\/tags\// }}
