@@ -120,6 +120,38 @@ npm run dev:h5
 
 微信小程序需要替换成自己 `appid`，修改 `manifest.json` 文件下 `mp-weixin.appid`
 
+## Docker部署
+
+建议使用 `docker compose` 编排
+
+``` yml
+version: "3"
+
+services:
+  # 部署H5
+  uniapp-mojie-music:
+    image: mojiee/uniapp-mojie-music:xxx
+    container_name: uniapp-mojie-music
+    restart: always
+    environment:
+      # 后台API地址、注意不要加协议，只要ip+端口号或者域名
+      - API_BASE_URL=127.0.0.1:3000
+    ports:
+      - 9527:80
+    depends_on:
+      - netease-cloud-music-api
+
+  # 部署后台服务
+  netease-cloud-music-api:
+    image: mojiee/netease-cloud-music-api:xxx
+    container_name: netease-cloud-music-api
+    restart: always
+    ports:
+      - 3000:3000
+```
+
+微信小程序部署需要修改 `.env.production` 的 `VITE_BASE_URL` 地址。**请注意，地址必须加协议，不然会报错**
+
 ## License
 
 [MIT](https://github.com/mojiefong/uniapp-mojie-music/blob/master/LICENSE)
