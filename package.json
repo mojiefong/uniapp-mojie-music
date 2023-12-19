@@ -1,6 +1,6 @@
 {
   "name": "uniapp-mojie-music",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev:app": "uni -p app",
     "dev:app-android": "uni -p app-android",
@@ -39,7 +39,8 @@
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "release": "npx bumpp --commit --push --tag --no-verify"
   },
   "dependencies": {
     "@dcloudio/uni-app": "3.0.0-3090820231124001",
