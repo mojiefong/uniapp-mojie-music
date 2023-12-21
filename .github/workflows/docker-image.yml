@@ -19,6 +19,7 @@ jobs:
           sudo docker login --username=${username} --password=${password}
           sudo docker build -t mojiee/uniapp-mojie-music:${GITHUB_REF:10} .
           sudo docker push mojiee/uniapp-mojie-music:${GITHUB_REF:10}
+          sudo docker push mojiee/uniapp-mojie-music:latest
 
       - name: Github Release
         run: npx conventional-github-releaser -p angular
