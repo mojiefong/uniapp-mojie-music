@@ -29,7 +29,6 @@
         class="w-full bg-theme! mt2"
         type="primary"
         form-type="submit"
-        size="mini"
         @click="onLogout"
       >
         退出登录
@@ -39,7 +38,6 @@
         class="w-full bg-theme! mt2"
         type="primary"
         form-type="submit"
-        size="mini"
         @click="onLogin"
       >
         立即登录
