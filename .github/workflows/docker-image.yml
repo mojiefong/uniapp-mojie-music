@@ -18,6 +18,7 @@ jobs:
           echo git tag version: ${GITHUB_REF:10}
           sudo docker login --username=${username} --password=${password}
           sudo docker build -t mojiee/uniapp-mojie-music:${GITHUB_REF:10} .
+          sudo docker build -t mojiee/uniapp-mojie-music:latest .
           sudo docker push mojiee/uniapp-mojie-music:${GITHUB_REF:10}
           sudo docker push mojiee/uniapp-mojie-music:latest
 
