@@ -120,6 +120,10 @@ npm run dev:h5
 
 微信小程序需要替换成自己 `appid`，修改 `manifest.json` 文件下 `mp-weixin.appid`
 
+### H5预览
+
+[H5预览](http://111.231.196.45:9527)
+
 ## Docker部署
 
 建议使用 `docker compose` 编排
