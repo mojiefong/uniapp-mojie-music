@@ -1,13 +1,13 @@
 <template>
   <layout>
     <view class="px2 pb2">
-      <view class="h-8 fixed left-2 right-2 bg-bg-primary">
+      <view class="h-8 fixed z-10 left-2 right-2 bg-bg-primary">
         <view class="bg-white rd-8 flex-v-center text-light">
-          <text class="iconfont icon-search text-xl pt-0.5" />
+          <text class="iconfont icon-search text-xl pl1" />
           <view class="flex-1 px-1">
             <input v-model="keywords" class="text-sm" placeholder="搜索歌曲/歌手" focus>
           </view>
-          <text v-show="keywords" class="iconfont icon-close text-xl pt-0.5" @click="onClear" />
+          <text v-show="keywords" class="iconfont icon-close text-xl pr1" @click="onClear" />
         </view>
       </view>
 
@@ -42,19 +42,9 @@
         </view>
       </view>
 
-      <view v-show="searchList.length" class="pt-8">
-        <view
-          v-for="(song, index) in searchList"
-          :key="song.id"
-          class="text-sm text-secondary leading-6 flex-v-center"
-          @click="toPlay(index)"
-        >
-          <text class="iconfont icon-music mr-1" />
-          <text>
-            {{ song.name }}
-          </text>
-        </view>
-      </view>
+      <scroll-view class="pt-9" :scroll-y="true">
+        <mo-songs :songs="searchList" :all-play="false" :type="SongsType.Image" />
+      </scroll-view>
     </view>
   </layout>
 </template>
@@ -65,7 +55,7 @@ import { onLoad } from '@dcloudio/uni-app'
 import type { HotSearch, Song } from '@/models'
 import { getHotSearches, getSearchList } from '@/api/home'
 import { useStorage } from '@/store/storage'
-import { usePlayer } from '@/store/player'
+import { SongsType } from '@/enums'
 
 const keywords = ref('')
 const hotSearches = ref<HotSearch['hots']>([])
@@ -73,7 +63,6 @@ const searchList = ref<Song[]>([])
 
 const storageStore = useStorage()
 const { searchHistory } = storeToRefs(storageStore)
-const { onPlay } = usePlayer()
 
 onLoad(fetchHotSearches)
 
@@ -97,11 +86,6 @@ async function fetchSearchList() {
   } finally {
     uni.hideLoading()
   }
-}
-
-function toPlay(index: number) {
-  onPlay(searchList.value, index)
-  uni.navigateTo({ url: '/pages/player/player' })
 }
 
 function onClear() {
