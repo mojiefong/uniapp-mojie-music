@@ -1,5 +1,5 @@
 <template>
-  <view v-show="allPlay" class="py2">
+  <view v-show="allPlay" class="py2" @click="onClickAll">
     <view class="flex-v-center">
       <text class="w-6 h-6 text-white bg-theme flex-center rd-50%">
         <text class="iconfont icon-play" />
@@ -15,7 +15,7 @@
 
   <view
     v-for="(song, index) in songList" :key="song.id"
-    class="song flex-v-center pb2 last:pb0"
+    class="flex-v-center pb2"
     @click="onClick(song, index)"
   >
     <text
@@ -64,10 +64,9 @@ function onClick(song: Song, index: number) {
   onPlay(props.songs, index)
   uni.navigateTo({ url: '/pages/player/player' })
 }
-</script>
 
-<style scoped>
-.song:last-child .info{
-  border: 0;
+function onClickAll() {
+  onPlay(props.songs, 0)
+  uni.navigateTo({ url: '/pages/player/player' })
 }
-</style>
+</script>
