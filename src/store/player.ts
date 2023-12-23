@@ -208,9 +208,13 @@ export const usePlayer = defineStore('player', () => {
    * 循环播放
    */
   function onLoopPlay() {
-    // currentTime.value = 0
     audio.seek(0)
     audio.play()
+
+    // #ifdef MP-WEIXIN
+    // 微信小程序中循环播放需要重新设置歌曲地址，目前未找到解决方案
+    fetchSongUrl()
+    // #endif
   }
 
   /**
