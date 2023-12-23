@@ -22,17 +22,17 @@
         <view class="w-70 h-70 relative mt10">
           <view
             class="w-18.5 h-30 absolute left-49% -top-15 z-20 rotate-0 origin-[12px_12px] transition-transform duration-0.3s"
-            bg="cover no-repeat"
             :class="{ '!-rotate-30': !playing }"
-            style="background-image: url('../../static/stylus.png')"
-          />
+          >
+            <image class="wh-full" src="../../static/stylus.png" />
+          </view>
 
           <view
-            class="wh-full bg-cover bg-no-repeat relative rotate-start"
+            class="wh-full relative rotate-start"
             :class="{ 'rotate-paused': !playing }"
-            style="background-image: url('../../static/circle.png')"
             @click="isLyric = true"
           >
+            <image class="wh-full" src="../../static/circle.png" />
             <image class="w-60% h-60% rd-50% pos-center" :src="`${currentSong.album?.picUrl}?param=200y200`" />
           </view>
         </view>
