@@ -30,13 +30,20 @@
       class="info flex-1 flex-h-center flex-col ml-2 overflow-hidden"
       :class="{ 'h-10': type !== SongsType.Index }"
     >
-      <text class="text-sm">
+      <text
+        class="text-sm"
+        :class="{ 'text-theme': currentIndex === index }"
+      >
         {{ song.name }}
       </text>
       <text class="text-[20rpx] text-light truncate">
         {{ song.singers.join('/') }} - {{ song.album.name }}
       </text>
     </view>
+    <text
+      v-if="currentIndex === index"
+      class="iconfont icon-playing text-theme"
+    />
   </view>
 </template>
 
@@ -57,16 +64,17 @@ const props = withDefaults(defineProps<Props>(), {
   type: SongsType.Image,
 })
 
-const { onPlay } = usePlayer()
+const playerStore = usePlayer()
+const { currentIndex } = storeToRefs(playerStore)
 const songList = computed(() => props.slice ? props.songs.slice(0, props.slice) : props.songs)
 
 function onClick(song: Song, index: number) {
-  onPlay(props.songs, index)
+  playerStore.onPlay(props.songs, index)
   uni.navigateTo({ url: '/pages/player/player' })
 }
 
 function onClickAll() {
-  onPlay(props.songs, 0)
+  playerStore.onPlay(props.songs, 0)
   uni.navigateTo({ url: '/pages/player/player' })
 }
 </script>
