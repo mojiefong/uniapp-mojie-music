@@ -48,7 +48,7 @@
         :class="isLyric ? 'opacity-100' : 'opacity-0'"
         @click="isLyric = false"
       >
-        <template v-if="lyricList.length">
+        <view v-if="lyricList.length" class="pb-50%">
           <view
             v-for="(lyric, index) in lyricList"
             :key="lyric.time"
@@ -57,8 +57,8 @@
           >
             {{ lyric.content }}
           </view>
-        </template>
-        <view v-else class="pt-30 text-center text-sm text-light">
+        </view>
+        <view v-else class="h-full flex-center text-sm text-light">
           暂无歌词
         </view>
       </scroll-view>
