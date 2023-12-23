@@ -32,7 +32,7 @@
     >
       <text
         class="text-sm"
-        :class="{ 'text-theme': currentIndex === index }"
+        :class="{ 'text-theme': currentSong.id === song.id }"
       >
         {{ song.name }}
       </text>
@@ -41,7 +41,7 @@
       </text>
     </view>
     <text
-      v-if="currentIndex === index"
+      v-if="currentSong.id === song.id"
       class="iconfont icon-playing text-theme"
     />
   </view>
@@ -65,7 +65,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const playerStore = usePlayer()
-const { currentIndex } = storeToRefs(playerStore)
+const { currentSong } = storeToRefs(playerStore)
 const songList = computed(() => props.slice ? props.songs.slice(0, props.slice) : props.songs)
 
 function onClick(song: Song, index: number) {
