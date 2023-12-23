@@ -86,6 +86,23 @@ export const usePlayer = defineStore('player', () => {
     audioVal.coverImgUrl = currentSongVal.album.picUrl
     audioVal.src = url
     audioVal.play()
+
+    // #ifdef H5
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: currentSongVal.name,
+        artist: currentSongVal.singers.join('/'),
+        album: currentSongVal.album.name,
+        artwork: [
+          {
+            src: `${currentSongVal.album.picUrl}?param=512y512`,
+            sizes: '512x512',
+            type: 'image/png',
+          },
+        ],
+      })
+    }
+    // #endif
   }
 
   /**
