@@ -98,6 +98,7 @@ page, html, body {
 
   color: var(--color-text-base);
   background: var(--background-color-base);
+  font-family: Noto Sans SC,PingFang SC,Helvetica Neue,Helvetica,Hiragino Sans GB,Microsoft YaHei,Microsoft YaHei UI,SimSun,Arial,sans-serif;
 }
 
 page,

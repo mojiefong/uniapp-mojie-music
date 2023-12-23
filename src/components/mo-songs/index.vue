@@ -1,8 +1,8 @@
 <template>
-  <view v-show="allPlay" class="text-sm py2">
+  <view v-show="allPlay" class="py2">
     <view class="flex-v-center">
       <text class="w-6 h-6 text-white bg-theme flex-center rd-50%">
-        <text class="iconfont icon-play text-xs" />
+        <text class="iconfont icon-play" />
       </text>
       <text class="pl-2 pr-1">
         播放全部

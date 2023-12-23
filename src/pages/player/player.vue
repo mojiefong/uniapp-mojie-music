@@ -1,6 +1,6 @@
 <template>
   <view class="wh-full fixed top-0 left-0 bg-black">
-    <view class="wh-full flex-center flex-col pb-5">
+    <view class="wh-full flex-center flex-col pb2">
       <!-- 背景底图 -->
       <view class="wh-full absolute top-0 left-0 opacity-50 blur-[20px] -z1">
         <image class="wh-full" :src="`${currentSong.album?.picUrl}?param=200y200`" />
@@ -18,21 +18,23 @@
       </view>
 
       <!-- 旋转的光盘 -->
-      <view v-show="!isLyric" class="fade-in w-70 relative flex-1 pt-30">
-        <view
-          class="w-18.5 h-30 absolute left-49% top-15 z-20
-          bg-cover bg-no-repeat rotate-0 origin-[12px_12px]
-          transition-transform duration-0.3s"
-          :class="{ '!-rotate-30': !playing }"
-          style="background-image: url('../../static/stylus.png')"
-        />
-        <view
-          class="w-full h-70 bg-cover bg-no-repeat relative rotate-start"
-          :class="{ 'rotate-paused': !playing }"
-          style="background-image: url('../../static/circle.png')"
-          @click="isLyric = true"
-        >
-          <image class="w-64% h-64% rd-50% pos-center" :src="`${currentSong.album?.picUrl}?param=200y200`" />
+      <view v-show="!isLyric" class="fade-in w-full flex-1 flex-center">
+        <view class="w-70 h-70 relative mt10">
+          <view
+            class="w-18.5 h-30 absolute left-49% -top-15 z-20 rotate-0 origin-[12px_12px] transition-transform duration-0.3s"
+            bg="cover no-repeat"
+            :class="{ '!-rotate-30': !playing }"
+            style="background-image: url('../../static/stylus.png')"
+          />
+
+          <view
+            class="wh-full bg-cover bg-no-repeat relative rotate-start"
+            :class="{ 'rotate-paused': !playing }"
+            style="background-image: url('../../static/circle.png')"
+            @click="isLyric = true"
+          >
+            <image class="w-60% h-60% rd-50% pos-center" :src="`${currentSong.album?.picUrl}?param=200y200`" />
+          </view>
         </view>
       </view>
 
@@ -71,13 +73,13 @@
         </view>
 
         <!-- 进度条 -->
-        <view class="flex-v-center px-3 text-xs">
-          <view class="w-8">
+        <view class="flex-v-center px-3 py-2 text-xs">
+          <view class="w-10">
             {{ formatTime(currentTime) }}
           </view>
           <view class="flex-1">
             <slider
-              class="mx-2"
+              class="m0"
               background-color="rgba(255, 255, 255, 0.3)"
               active-color="var(--color-base)"
               :block-size="12"
@@ -86,7 +88,7 @@
               @changing="onChanging"
             />
           </view>
-          <view class="w-8">
+          <view class="w-10 text-right">
             {{ formatTime(currentSong.dt / 1000) }}
           </view>
         </view>

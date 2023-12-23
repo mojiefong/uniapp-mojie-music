@@ -2,7 +2,7 @@
   <layout>
     <view class="px2 pb2">
       <view class="h-8 fixed z-10 left-2 right-2 bg-bg-primary">
-        <view class="bg-white rd-8 flex-v-center text-light">
+        <view class="bg-white h-full rd-8 flex-v-center text-light">
           <text class="iconfont icon-search text-xl pl1" />
           <view class="flex-1 px-1">
             <input v-model="keywords" class="text-sm" placeholder="搜索歌曲/歌手" focus>
