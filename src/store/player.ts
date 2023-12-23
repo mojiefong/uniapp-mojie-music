@@ -48,6 +48,9 @@ export const usePlayer = defineStore('player', () => {
    * @param source 歌曲来源
    */
   async function fetchSongUrl(id = currentSong.value.id, source?: string) {
+    audio.stop()
+    currentTime.value = 0
+
     try {
       const { data } = await getSongUrl(id, source)
       const { url } = data.data[0]
