@@ -2,6 +2,8 @@
 
 魔杰音乐是一个支持多端（H5、小程序、Android、iOS）音乐播放器。使用了最新的 uni-app、Vue3、Vite、TypeScript、UnoCSS 等主流技术。
 
+有兴趣的朋友欢迎一起完善和交流，欢迎 PR，我的微信：`18132526`
+
 **注意：本项目主要用于练手学习**
 
 ## 特性
@@ -134,7 +136,7 @@ version: "3"
 services:
   # 部署H5
   uniapp-mojie-music:
-    image: mojiee/uniapp-mojie-music:xxx
+    image: mojiee/uniapp-mojie-music:latest
     container_name: uniapp-mojie-music
     restart: always
     environment:
@@ -147,7 +149,7 @@ services:
 
   # 部署后台服务
   netease-cloud-music-api:
-    image: mojiee/netease-cloud-music-api:xxx
+    image: mojiee/netease-cloud-music-api:latest
     container_name: netease-cloud-music-api
     restart: always
     ports:
