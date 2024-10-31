@@ -6,6 +6,10 @@
 
 **注意：本项目主要用于练手学习**
 
+## H5预览
+
+[uniapp-mojie-music](https://music.mojiee.com)
+
 ## 特性
 
 - uni-app：一个使用 Vue 开发所有前端应用的框架
@@ -121,10 +125,6 @@ npm run dev:h5
 ```
 
 微信小程序需要替换成自己 `appid`，修改 `manifest.json` 文件下 `mp-weixin.appid`
-
-### H5预览
-
-[H5预览](http://111.231.196.45:9527)
 
 ## Docker部署
 
